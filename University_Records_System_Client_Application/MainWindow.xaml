@@ -1,0 +1,101 @@
+﻿<Window x:Class="University_Records_System_Client_Application.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:University_Records_System_Client_Application"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800" Loaded="Window_Loaded" Closing="Window_Is_Closing" WindowStyle="None" AllowsTransparency="True">
+
+    <Window.Background>
+        <LinearGradientBrush StartPoint="0.5, 1" EndPoint="0, 1">
+            <GradientStop x:Name="Window_Offset" Color="White" Offset="1"/>
+            <GradientStop Color="#FFACADAD"/>
+        </LinearGradientBrush>
+    </Window.Background>
+    
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <Rectangle x:Name="Window_Handle" Grid.ColumnSpan="9" MouseDown="Move_The_Window" Height="50" VerticalAlignment="Top">
+            <Rectangle.Fill>
+                <LinearGradientBrush StartPoint="0.5, 1" EndPoint="0, 1">
+                    <GradientStop x:Name="Window_Handle_Offset" Color="#FF373737" Offset="1"/>
+                    <GradientStop Color="#FF2D2D2D"/>
+                </LinearGradientBrush>
+            </Rectangle.Fill>
+        </Rectangle>
+
+        <StackPanel Grid.Column="7" Grid.RowSpan="2" Grid.ColumnSpan="2" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="10" Orientation="Horizontal">
+            <Button x:Name="Minimise_The_Window_Button" FontSize="20" Margin="0,0,10,0" FontFamily="Segoe MDL2 Assets" Content="&#xEF2D;" Click="Minimise_The_Window" Style="{StaticResource Blue_On_Hover_Margin_Button_Style}">
+                <Button.Foreground>
+                    <LinearGradientBrush StartPoint="0.5, 1" EndPoint="0, 1">
+                        <GradientStop x:Name="Minimise_The_Window_Button_Offset" Color="#FF0090FF" Offset="1"/>
+                        <GradientStop Color="#FF095780"/>
+                    </LinearGradientBrush>
+                </Button.Foreground>
+            </Button>
+
+            <Button x:Name="Maximise_Or_Normalise_The_Window_Button" FontSize="20" Margin="0,0,10,0" FontFamily="Segoe MDL2 Assets" Content="&#xEF2E;" Click="Maximise_Or_Normalise_The_Window" Style="{StaticResource Blue_On_Hover_Margin_Button_Style}">
+                <Button.Foreground>
+                    <LinearGradientBrush StartPoint="0.5, 1" EndPoint="0, 1">
+                        <GradientStop x:Name="Maximise_Or_Normalise_The_Window_Button_Offset" Color="#FF0090FF" Offset="1"/>
+                        <GradientStop Color="#FF095780"/>
+                    </LinearGradientBrush>
+                </Button.Foreground>
+            </Button>
+
+            <Button x:Name="Close_The_Window_Button" FontSize="20" FontFamily="Segoe MDL2 Assets" Content="&#xEF2C;" Click="Close_The_Window" Style="{StaticResource Blue_On_Hover_Margin_Button_Style}">
+                <Button.Foreground>
+                    <LinearGradientBrush StartPoint="0.5, 1" EndPoint="0, 1">
+                        <GradientStop x:Name="Close_The_Window_Button_Offset" Color="#FF0090FF" Offset="1"/>
+                        <GradientStop Color="#FF095780"/>
+                    </LinearGradientBrush>
+                </Button.Foreground>
+            </Button>
+        </StackPanel>
+
+        <Button x:Name="Main_Menu_Button" Grid.RowSpan="2" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10" FontSize="30" FontFamily="Segoe MDL2 Assets" Content="&#xE700;" Style="{StaticResource Blue_On_Hover_Margin_Button_Style}" Click="Expand_The_Main_Menu">
+            <Button.Foreground>
+                <LinearGradientBrush StartPoint="0.5, 1" EndPoint="0, 1">
+                    <GradientStop x:Name="Main_Menu_Button_Offset" Color="#FF0090FF" Offset="1"/>
+                    <GradientStop Color="#FF095780"/>
+                </LinearGradientBrush>
+            </Button.Foreground>
+        </Button>
+
+        <Frame x:Name="Page_Navigation_Frame" NavigationUIVisibility="Hidden" Margin="0,50,0,0" Grid.RowSpan="9" Grid.ColumnSpan="9"/>
+
+        <StackPanel x:Name="Main_Menu_Panel" Margin="0,50,0,0" Grid.ColumnSpan="3" Grid.RowSpan="5" HorizontalAlignment="Left" VerticalAlignment="Top" Height="0" Width="200">
+            <StackPanel.Background>
+                <LinearGradientBrush StartPoint="0.5, 1" EndPoint="0, 1">
+                    <GradientStop x:Name="Main_Menu_Panel_Offset" Color="#FF0090FF" Offset="1"/>
+                    <GradientStop Color="#FF095780"/>
+                </LinearGradientBrush>
+            </StackPanel.Background>
+        </StackPanel>
+
+    </Grid>
+</Window>
