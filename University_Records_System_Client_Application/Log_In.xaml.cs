@@ -32,7 +32,7 @@ namespace University_Records_System_Client_Application
                 Current_Page = "Register Page";
             }
         }
-
+        
         private class Server_Connection_Mitigator:Server_Connections
         {
             internal static async Task<byte[]> Connection_Initialisation_Procedure<Password__Or__Binary_Content>(string email__or__log_in_session_key, Password__Or__Binary_Content password__or__binary_content, string function, bool binary_file)

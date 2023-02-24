@@ -11,7 +11,7 @@ namespace University_Records_System_Client_Application
         protected static Task<byte[]> Content_Hasher(string content)
         {
             byte[] Content_Hashing_Result = new byte[] { };
-            System.Security.Cryptography.HashAlgorithm content_hasher = System.Security.Cryptography.SHA256Cng.Create();
+            System.Security.Cryptography.HashAlgorithm content_hasher = System.Security.Cryptography.SHA256.Create();
 
             try
             {
@@ -28,5 +28,9 @@ namespace University_Records_System_Client_Application
 
             return Task.FromResult(Content_Hashing_Result);
         }
+
+
+
+
     }
 }
