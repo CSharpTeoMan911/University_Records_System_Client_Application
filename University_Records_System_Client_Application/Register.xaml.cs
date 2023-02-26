@@ -54,8 +54,6 @@ namespace University_Records_System_Client_Application
                             if(Password_PasswordBox.Password == Password_PasswordBox_Repeated.Password)
                             {
                                 byte[] registration_result = await Server_Connection_Mitigator.Connection_Initialisation_Procedure<string>(Email_TextBox.Text, Password_PasswordBox.Password, "Register", false);
-
-                                System.Diagnostics.Debug.WriteLine("Registration result: " + Encoding.UTF8.GetString(registration_result));
                             }
                         }
                     }

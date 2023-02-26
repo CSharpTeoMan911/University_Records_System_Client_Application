@@ -36,7 +36,7 @@ namespace University_Records_System_Client_Application
             }
             else if (typeof(Password__Or__Binary_Content) == typeof(string))
             {
-                payload.password__or__binary_content = Convert.ToBase64String(await Application_Cryptographic_Services_Mitigator.Content_Hasher_Initiator(password__or__binary_content as string));
+                payload.password__or__binary_content = Convert.ToBase64String(Encoding.UTF8.GetBytes(password__or__binary_content as string));
             }
  
 
@@ -59,8 +59,9 @@ namespace University_Records_System_Client_Application
 
                 await payload_stream.FlushAsync();
             }
-            catch 
+            catch (Exception E)
             {
+                System.Diagnostics.Debug.WriteLine("Client payload serialization error: " + E.ToString());
                 if(payload_stream != null)
                 {
                     payload_stream.Close();
@@ -88,13 +89,16 @@ namespace University_Records_System_Client_Application
             try
             {
 
+
                 System.Xml.Serialization.XmlSerializer payload_deserialiser = new System.Xml.Serialization.XmlSerializer(server_payload.GetType());
                 server_payload = (Server_WSDL_Payload)payload_deserialiser?.Deserialize(payload_stream);
+
 
                 server_payload.response = Encoding.UTF8.GetString(Convert.FromBase64String(server_payload.response));
             }
             catch (Exception E)
             {
+                System.Diagnostics.Debug.WriteLine("Server payload deserialization error: " + E.ToString());
                 if (payload_stream != null)
                 {
                     payload_stream.Close();

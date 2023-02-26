@@ -75,5 +75,23 @@ namespace University_Records_System_Client_Application
                 }
             }
         }
+
+        private void Load_Certificate_Authority(object sender, RoutedEventArgs e)
+        {
+            if (Application.Current != null)
+            {
+                if (Application.Current.Dispatcher != null)
+                {
+                    if (Application.Current.Dispatcher.HasShutdownStarted == false)
+                    {
+                        if (this != null)
+                        {
+                            Certificate_Password_Selector certificate_Password_Selector = new Certificate_Password_Selector();
+                            certificate_Password_Selector.ShowDialog();
+                        }
+                    }
+                }
+            }
+        }
     }
 }
