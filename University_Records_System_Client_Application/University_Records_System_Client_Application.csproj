@@ -57,9 +57,6 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Application_Cryptographic_Services.cs" />
-    <Compile Include="Certificate_Password_Selector.xaml.cs">
-      <DependentUpon>Certificate_Password_Selector.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Client_Variables.cs" />
     <Compile Include="Client_WSDL_Payload.cs" />
     <Compile Include="Log_In.xaml.cs">
@@ -68,16 +65,15 @@
     <Compile Include="Log_In_Or_Register.xaml.cs">
       <DependentUpon>Log_In_Or_Register.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Password_Window.xaml.cs">
+      <DependentUpon>Password_Window.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Payload_Serialisation_and_Deserialisation.cs" />
     <Compile Include="Register.xaml.cs">
       <DependentUpon>Register.xaml</DependentUpon>
     </Compile>
     <Compile Include="Server_Connections.cs" />
     <Compile Include="Server_WSDL_Payload.cs" />
-    <Page Include="Certificate_Password_Selector.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Log_In.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -98,6 +94,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Password_Window.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Register.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

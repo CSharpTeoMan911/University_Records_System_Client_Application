@@ -69,7 +69,13 @@ namespace University_Records_System_Client_Application
                     {
                         if(this != null)
                         {
-                            await Server_Connection_Mitigator.Connection_Initialisation_Procedure<string>(Email_TextBox.Text, Password_PasswordBox.Password, "Log In", false);
+                            byte[] log_in_result = await Server_Connection_Mitigator.Connection_Initialisation_Procedure<string>(Email_TextBox.Text, Password_PasswordBox.Password, "Log In", false);
+
+                            if(Encoding.UTF8.GetString(log_in_result) == "Account not validated")
+                            {
+                                Password_Window certificate_Password_Selector = new Password_Window("Account validation", Email_TextBox.Text);
+                                certificate_Password_Selector.ShowDialog();
+                            }
                         }
                     }
                 }
@@ -86,7 +92,7 @@ namespace University_Records_System_Client_Application
                     {
                         if (this != null)
                         {
-                            Certificate_Password_Selector certificate_Password_Selector = new Certificate_Password_Selector();
+                            Password_Window certificate_Password_Selector = new Password_Window("Add X509 certificate", null);
                             certificate_Password_Selector.ShowDialog();
                         }
                     }

@@ -190,8 +190,6 @@ namespace University_Records_System_Client_Application
 
                             Server_WSDL_Payload deserialised_server_payload = await Payload_Serialisation_and_Deserialisation_Mitigator.Derialise_Server_Payload_Initiator(server_payload);
                             return_value = Encoding.UTF8.GetBytes(deserialised_server_payload.response);
-
-                            System.Diagnostics.Debug.WriteLine(Encoding.UTF8.GetString(return_value));
                         }
                     }
                     catch (Exception E)
