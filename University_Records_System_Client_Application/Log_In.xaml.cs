@@ -59,7 +59,7 @@ namespace University_Records_System_Client_Application
             }
         }
 
-        private async void Log_In_Credentials(object sender, RoutedEventArgs e)
+        private void Log_In_Credentials(object sender, RoutedEventArgs e)
         {
             if (Application.Current != null)
             {
@@ -69,13 +69,36 @@ namespace University_Records_System_Client_Application
                     {
                         if(this != null)
                         {
-                            byte[] log_in_result = await Server_Connection_Mitigator.Connection_Initialisation_Procedure<string>(Email_TextBox.Text, Password_PasswordBox.Password, "Log In", false);
+                            string email = Email_TextBox.Text;
+                            string password = Password_PasswordBox.Password;
 
-                            if(Encoding.UTF8.GetString(log_in_result) == "Account not validated")
+
+
+                            System.Threading.Thread connection_thread = new System.Threading.Thread(async () =>
                             {
-                                Password_Window certificate_Password_Selector = new Password_Window("Account validation", Email_TextBox.Text);
-                                certificate_Password_Selector.ShowDialog();
-                            }
+                                byte[] log_in_result = await Server_Connection_Mitigator.Connection_Initialisation_Procedure<string>(email, password, "Log In", false);
+
+
+                                Application.Current.Dispatcher.Invoke(() =>
+                                {
+                                    if (Encoding.UTF8.GetString(log_in_result) == "Account not validated")
+                                    {
+                                        Password_Window certificate_Password_Selector = new Password_Window("Account validation", email);
+                                        certificate_Password_Selector.ShowDialog();
+                                    }
+                                    else
+                                    {
+                                        Message_Displayer.Display_Message(log_in_result);
+
+                                        Password_Window certificate_Password_Selector = new Password_Window("Log in code", email);
+                                        certificate_Password_Selector.ShowDialog();
+                                    }
+                                });
+                            });
+                            connection_thread.SetApartmentState(System.Threading.ApartmentState.STA);
+                            connection_thread.Priority = System.Threading.ThreadPriority.Highest;
+                            connection_thread.IsBackground = true;
+                            connection_thread.Start();
                         }
                     }
                 }

@@ -65,6 +65,7 @@
     <Compile Include="Log_In_Or_Register.xaml.cs">
       <DependentUpon>Log_In_Or_Register.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Message_Displayer.cs" />
     <Compile Include="Password_Window.xaml.cs">
       <DependentUpon>Password_Window.xaml</DependentUpon>
     </Compile>

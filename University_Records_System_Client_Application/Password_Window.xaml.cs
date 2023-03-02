@@ -77,7 +77,7 @@ namespace University_Records_System_Client_Application
                         if (this != null)
                         {
 
-                            switch(Selected_Function)
+                            switch (Selected_Function)
                             {
                                 case "Add X509 certificate":
 
@@ -118,9 +118,14 @@ namespace University_Records_System_Client_Application
 
                                 case "Account validation":
                                     byte[] authentification_validation_result = await Server_Connection_Mitigator.Connection_Initialisation_Procedure<string>(email, Password_PasswordBox.Password, "Account validation", false);
+                                    Message_Displayer.Display_Message(authentification_validation_result);
 
-                                    System.Diagnostics.Debug.WriteLine("Validation result: " + Encoding.UTF8.GetString(authentification_validation_result));
+                                    if(Encoding.UTF8.GetString(authentification_validation_result) == "Account validation successful")
+                                    {
+                                        this.Close();
+                                    }
                                     break;
+
 
                                 case "Log in code":
                                     
