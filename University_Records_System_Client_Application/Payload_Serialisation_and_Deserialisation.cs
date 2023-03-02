@@ -6,15 +6,14 @@ using System.Threading.Tasks;
 
 namespace University_Records_System_Client_Application
 {
-    class Payload_Serialisation_and_Deserialisation
+    class Payload_Serialisation_and_Deserialisation : Application_Cryptographic_Services
     {
-        private class Application_Cryptographic_Services_Mitigator : Application_Cryptographic_Services
-        {
-            internal static async Task<byte[]> Content_Hasher_Initiator(string content)
-            {
-                return await Content_Hasher(content);
-            }
-        }
+
+        // CLASS THAT IS USED TO SERIALISE THE CLIENT PAYLOAD AND DESERIALISE THE SERVER PAYLOAD
+        // IN ORDER TO EXTRACT AND TRANSMIT CONTANTS OF ANY SELECTED OPERATION.
+
+
+
 
 
         protected static async Task<byte[]> Serialise_Client_Payload<Password__Or__Binary_Content>(string email__or__log_in_session_key, Password__Or__Binary_Content password__or__binary_content, string function)
@@ -98,7 +97,6 @@ namespace University_Records_System_Client_Application
             }
             catch (Exception E)
             {
-                System.Diagnostics.Debug.WriteLine("Server payload deserialization error: " + E.ToString());
                 if (payload_stream != null)
                 {
                     payload_stream.Close();

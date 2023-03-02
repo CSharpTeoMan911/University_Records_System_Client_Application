@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace University_Records_System_Client_Application
 {
-    internal class Server_Connections
+    internal class Server_Connections : Payload_Serialisation_and_Deserialisation
     {
         protected static string Server_Ip_Address = "127.0.0.1";
         protected static int port = 1024;
@@ -14,22 +14,17 @@ namespace University_Records_System_Client_Application
         private static System.Diagnostics.Stopwatch speed_checkup = new System.Diagnostics.Stopwatch();
 
 
-        private class Payload_Serialisation_and_Deserialisation_Mitigator : Payload_Serialisation_and_Deserialisation
-        {
-            internal static async Task<byte[]> Serialise_Client_Payload_Initiator<Password__Or__Binary_Content>(string email__or__log_in_session_key, Password__Or__Binary_Content password__or__binary_content, string function)
-            {
-                return await Serialise_Client_Payload<Password__Or__Binary_Content>(email__or__log_in_session_key, password__or__binary_content, function);
-            }
 
-            internal static async Task<Server_WSDL_Payload> Derialise_Server_Payload_Initiator(byte[] payload)
-            {
-                return await Deserialise_Server_Payload(payload);
-            }
-        }
+
+
+
+
 
 
         private static bool ValidateServerCertificate( object sender, System.Security.Cryptography.X509Certificates.X509Certificate certificate, System.Security.Cryptography.X509Certificates.X509Chain chain, System.Net.Security.SslPolicyErrors sslPolicyErrors)
         {
+            // IF THE CERTIFICATE MATCHES ANY TRUSTED ROOT CERTIFICATE AUTHORITY
+            // WITHIN THE DEVICE'S CERTIFICATE STORE, VALIDATE THE CERTIFICATE
             if (sslPolicyErrors == System.Net.Security.SslPolicyErrors.None)
             {
                 return true;
@@ -39,9 +34,10 @@ namespace University_Records_System_Client_Application
         }
 
 
+
         protected static async Task<byte[]> Initiate_Server_Connection<Password__Or__Binary_Content>(string email__or__log_in_session_key, Password__Or__Binary_Content password__or__binary_content, string function, bool binary_file)
         {
-            byte[] return_value = Encoding.UTF8.GetBytes("FAILED");
+            byte[] return_value = Encoding.UTF8.GetBytes("Connection error");
             byte[] client_response = Encoding.UTF8.GetBytes("OK");
 
             byte[] is_binary_file = new byte[1024];
@@ -68,7 +64,7 @@ namespace University_Records_System_Client_Application
 
 
 
-                byte[] serialised_payload = await Payload_Serialisation_and_Deserialisation_Mitigator.Serialise_Client_Payload_Initiator<Password__Or__Binary_Content>(email__or__log_in_session_key, password__or__binary_content, function);
+                byte[] serialised_payload = await Serialise_Client_Payload<Password__Or__Binary_Content>(email__or__log_in_session_key, password__or__binary_content, function);
                 byte[] serialised_payload_length = BitConverter.GetBytes(serialised_payload.Length);
 
 
@@ -91,7 +87,7 @@ namespace University_Records_System_Client_Application
 
                         if (Encoding.UTF8.GetString(serialised_payload, 0, serialised_payload.Length) != "PAYLOAD SERIALISATION FAILED")
                         {
-                            secure_client_stream.AuthenticateAsClient("University-Student-Records-System");
+                            secure_client_stream.AuthenticateAsClient("University-Student-Records-System", null, System.Security.Authentication.SslProtocols.Tls11, false);
 
 
                             int bytes_per_second = await Rount_Trip_Time_Calculator(secure_client_stream);
@@ -208,7 +204,7 @@ namespace University_Records_System_Client_Application
 
 
 
-                            Server_WSDL_Payload deserialised_server_payload = await Payload_Serialisation_and_Deserialisation_Mitigator.Derialise_Server_Payload_Initiator(server_payload);
+                            Server_WSDL_Payload deserialised_server_payload = await Deserialise_Server_Payload(server_payload);
                             return_value = Encoding.UTF8.GetBytes(deserialised_server_payload.response);
                         }
                     }
@@ -278,6 +274,10 @@ namespace University_Records_System_Client_Application
 
 
 
+        // CALCULATOR THAT CALCULATES THE TIME TOOK TO TRANSMIT AND RECEIVE A PACKET OF A SET SIZE OVER THE MAIN CONNECTION.
+        // THE PACKET TRANSMISSION PROCEDURE IS REPEATED 10 TIMES OVER THE CONNECTION AND THE MEDIAN VALUE OF THE TIME
+        // IS CALCULATED. THIS MUST BE DONE IN ORDER TO ADJUST THE MAIN CONNECTION'S SOCKET RECEIVE AND SEND TIMEOUT
+        // IN ACCORDACE WITH THE SIZE OF THE PACKET TO BE RECEIVED OR SENT RESPECTIVELY.
         private static async Task<int> Rount_Trip_Time_Calculator(System.Net.Security.SslStream secure_client_stream)
         {
             long time = 0;
@@ -335,6 +335,14 @@ namespace University_Records_System_Client_Application
 
 
 
+
+        // CALCULATE THE MAIN CONNECTION'S SEND OR RECEIVE TIMEOUT BASED ON THE RTT CALCULATED VALUE
+        // IN ACCORDANCE WITH THE PACKET SIZE TO BE SENT OR RECEIVED.
+        /*
+
+
+
+         */
 
         private static Task<int> Calculate_Connection_Timeout(System.Net.Sockets.Socket client, int payload_size, int bytes_per_second)
         {

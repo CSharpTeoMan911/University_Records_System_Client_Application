@@ -41,10 +41,38 @@ namespace University_Records_System_Client_Application
             InitializeComponent();
         }
 
+
+
+
+
+
+
+        // PRIVATE SEALED CLASSES THAT ACCESS SENSITIVE INFORMATION.
+        //
+        // THESE CLASSES INTERACT WITH THE SENSITIVE METHODS USING
+        // INTERNAL METHODS, MENING THAT THESE METHODS CAN BE
+        // ACCESSED ONLY IN THE MAIN CLASS THAT CONTAINS THE
+        // SEALED CLASS.
+        //
+        //
+        //
+        // [ BEGIN ]
+
         private class Server_Connections_Mitigator:Server_Connections
         {
 
         }
+
+        // [ END ]
+
+
+
+
+
+
+
+
+
 
         private void Move_The_Window(object sender, MouseButtonEventArgs e)
         {

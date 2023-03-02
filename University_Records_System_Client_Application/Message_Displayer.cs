@@ -9,6 +9,9 @@ namespace University_Records_System_Client_Application
 {
     class Message_Displayer
     {
+
+        // THIS IS A GLOBAL CLASS THAT IS DISPLAYING THE RESULTS OF FUNCTIONS
+        // EXECUTED BY THE APPLICATION IN THE FORM OF MESSAGES
         public static void Display_Message(byte[] received_message)
         {
             Application.Current.Dispatcher.Invoke(() =>
@@ -47,7 +50,16 @@ namespace University_Records_System_Client_Application
                         MessageBox.Show("Check your email address for your one time log in code to log in into your account. The log in code expires in 5 minutes.", "Log in successful", MessageBoxButton.OK, MessageBoxImage.Information, MessageBoxResult.OK);
                         break;
 
-                    case "":
+                    case "Connection error":
+                        MessageBox.Show("Cannot communicate with the server. Check your internet connection.", "Connection error", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK);
+                        break;
+
+                    case "Account not validated":
+                        MessageBox.Show("Account is not validated. Enter the registration code sent to the email address specified for this account.", "Account not validated", MessageBoxButton.OK, MessageBoxImage.Information, MessageBoxResult.OK);
+                        break;
+
+                    case "Wrong log in code":
+                        MessageBox.Show("Enter a valid log in code.", "Log in unsuccessful", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK);
                         break;
                 }
             });

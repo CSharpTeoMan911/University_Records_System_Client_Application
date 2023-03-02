@@ -25,17 +25,64 @@ namespace University_Records_System_Client_Application
 
         private static Log_In log_in = new Log_In();
         private static Register register = new Register();
-        
+
+
+        private static bool Navigated_To_Main_Window;
+
+
+
+
+
+
+
+        // PRIVATE SEALED CLASSES THAT ACCESS SENSITIVE INFORMATION.
+        //
+        // THESE CLASSES INTERACT WITH THE SENSITIVE METHODS USING
+        // INTERNAL METHODS, MENING THAT THESE METHODS CAN BE
+        // ACCESSED ONLY IN THE MAIN CLASS THAT CONTAINS THE
+        // SEALED CLASS.
+        //
+        //
+        //
+        // [ BEGIN ]
+
+        private sealed class Application_Cryptographic_Services_Mitigator : Application_Cryptographic_Services
+        {
+            internal static async Task<bool> Load_Log_In_Session_Key_Initiator()
+            {
+                return await Load_Log_In_Session_Key();
+            }
+        }
+
+        // [ END ]
+
+
+
+
+
+
+
+
+
+
 
         public Log_In_Or_Register()
         {
             InitializeComponent();
         }
 
+
+
+
+
         private void Move_The_Window(object sender, MouseButtonEventArgs e)
         {
             this.DragMove();
         }
+
+
+
+
 
         private void Minimse_The_Window(object sender, RoutedEventArgs e)
         {
@@ -57,6 +104,10 @@ namespace University_Records_System_Client_Application
             }
         }
 
+
+
+
+
         private void Close_The_Window_Button_Click(object sender, RoutedEventArgs e)
         {
             if (Application.Current != null)
@@ -76,6 +127,10 @@ namespace University_Records_System_Client_Application
                 }
             }
         }
+
+
+
+
 
         private void Close_The_Window(object sender, RoutedEventArgs e)
         {
@@ -97,14 +152,34 @@ namespace University_Records_System_Client_Application
             }
         }
 
-        private void Window_Loaded(object sender, RoutedEventArgs e)
+
+
+
+
+        private async void Window_Loaded(object sender, RoutedEventArgs e)
         {
             Animation_Timer.Elapsed += Animation_Timer_Elapsed;
-            Animation_Timer.Interval = 10;
+            Animation_Timer.Interval = 1000;
             Animation_Timer.Start();
 
-            Current_Page = "Log In Page";
+
+
+
+            // IF A CACHE FILE EXISTS IN THE APPLICATION'S DIRECTORY NAVIGATE TO THE APPLICATION'S MAIN WINDOW
+            // OTHERWISE NAVIGATE TO THE LOG IN PAGE
+            if(await Application_Cryptographic_Services_Mitigator.Load_Log_In_Session_Key_Initiator() == true)
+            {
+                Current_Page = "Main Window";
+            }
+            else
+            {
+                Current_Page = "Log In Page";
+            }
         }
+
+
+
+
 
         private void Animation_Timer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
         {
@@ -120,7 +195,26 @@ namespace University_Records_System_Client_Application
                             {
                                 if (Window_Closing != true)
                                 {
-                                    switch(Current_Page)
+
+                                    /*
+                                            * THIS IS REMOVING THE PREVIOUS PAGE OBJECT FROM THE MEMORY
+                                              BY REMOVING IT FROM THE WINDOW'S NAVIGATION FRAME OBJECT
+
+
+
+                                            if(Navigation_Frame.NavigationService.CanGoBack == true)
+                                            {
+                                                Navigation_Frame.NavigationService.RemoveBackEntry();
+                                                Navigation_Frame.RemoveBackEntry();
+                                            }
+
+                                     */
+
+
+
+
+
+                                    switch (Current_Page)
                                     {
                                         case "Log In Page":
                                             if(Navigation_Frame.NavigationService.CanGoBack == true)
@@ -144,6 +238,24 @@ namespace University_Records_System_Client_Application
                                             Navigation_Frame.NavigationService.Navigate(register);
 
                                             Current_Page = null;
+                                            break;
+
+                                        case "Main Window":
+                                            if (Navigation_Frame.NavigationService.CanGoBack == true)
+                                            {
+                                                Navigation_Frame.NavigationService.RemoveBackEntry();
+                                                Navigation_Frame.RemoveBackEntry();
+                                            }
+
+                                            if(Navigated_To_Main_Window == false)
+                                            {
+                                                Navigated_To_Main_Window = true;
+
+                                                MainWindow mainWindow = new MainWindow();
+                                                mainWindow.Show();
+
+                                                this.Close();
+                                            }
                                             break;
                                     }
                                 }
@@ -193,6 +305,11 @@ namespace University_Records_System_Client_Application
                 }
             }
         }
+
+
+
+
+
 
         private void Window_Is_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
