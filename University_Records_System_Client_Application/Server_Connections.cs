@@ -8,13 +8,23 @@ namespace University_Records_System_Client_Application
 {
     internal class Server_Connections : Payload_Serialisation_and_Deserialisation
     {
-        protected static string Server_Ip_Address = "127.0.0.1";
-        protected static int port = 1024;
-
+      
         private static System.Diagnostics.Stopwatch speed_checkup = new System.Diagnostics.Stopwatch();
 
 
 
+        private sealed class Client_Variables_Mitigator:Client_Variables
+        {
+            public static Task<string> Get_EndPoint_Ip_Address()
+            {
+                return Task.FromResult(endpoint_ip_sddress);
+            }
+
+            public static Task<int> Get_EndPoint_Port_Number()
+            {
+                return Task.FromResult(endpoint_port);
+            }
+        }
 
 
 
@@ -59,7 +69,7 @@ namespace University_Records_System_Client_Application
 
             try
             {
-                client.Connect(Server_Ip_Address, port);
+                client.Connect(await Client_Variables_Mitigator.Get_EndPoint_Ip_Address(), await Client_Variables_Mitigator.Get_EndPoint_Port_Number());
 
 
 

@@ -15,5 +15,8 @@ namespace University_Records_System_Client_Application
         protected static string email;
         protected static string log_in_session_key;
         protected static bool keep_user_logged_in;
+
+        protected static string endpoint_ip_sddress = "127.0.0.1";
+        protected static int endpoint_port = 1024;
     }
 }
