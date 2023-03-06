@@ -27,9 +27,6 @@ namespace University_Records_System_Client_Application
         private static Register register = new Register();
 
 
-        private static bool Navigated_To_Main_Window;
-
-
 
 
 
@@ -247,17 +244,14 @@ namespace University_Records_System_Client_Application
                                                 Navigation_Frame.RemoveBackEntry();
                                             }
 
-                                            if(Navigated_To_Main_Window == false)
-                                            {
-                                                Navigated_To_Main_Window = true;
+                                            MainWindow mainWindow = new MainWindow();
+                                            mainWindow.Show();
 
-                                                MainWindow mainWindow = new MainWindow();
-                                                mainWindow.Show();
-
-                                                this.Close();
-                                            }
+                                            this.Close();
                                             break;
                                     }
+
+                                    Current_Page = null;
                                 }
                                 else
                                 {

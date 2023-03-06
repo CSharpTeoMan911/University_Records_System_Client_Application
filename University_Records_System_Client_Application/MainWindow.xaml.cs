@@ -25,6 +25,8 @@ namespace University_Records_System_Client_Application
         private short Main_Menu_Expanded_Or_Contracted;
         private System.Timers.Timer Animation_Timer = new System.Timers.Timer();
 
+        protected static string Navigated_Window;
+
 
         // UI RELATED OBJECT VALUES
         //
@@ -62,6 +64,21 @@ namespace University_Records_System_Client_Application
         {
 
         }
+
+        /*
+        private class Main_Window_Navigation_Mitigator:MainWindow
+        {
+            internal static void Navigate_To_Students()
+            {
+                //Navigated_Window = ""
+            }
+
+            internal static void Navigate_To_Courses()
+            {
+
+            }
+        }
+        */
 
         // [ END ]
 
@@ -226,6 +243,18 @@ namespace University_Records_System_Client_Application
                                                     Switch_Offset = true;
                                                     break;
                                             }
+                                            break;
+                                    }
+
+
+                                  
+                                    switch(Navigated_Window)
+                                    {
+                                        case "Students":
+                                            
+                                            break;
+
+                                        case "Courses":
                                             break;
                                     }
 
