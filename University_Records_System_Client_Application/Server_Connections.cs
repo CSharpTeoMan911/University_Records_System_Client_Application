@@ -218,9 +218,8 @@ namespace University_Records_System_Client_Application
                             return_value = Encoding.UTF8.GetBytes(deserialised_server_payload.response);
                         }
                     }
-                    catch (Exception E)
+                    catch
                     {
-                        
                         if (secure_client_stream != null)
                         {
                             secure_client_stream.Close();

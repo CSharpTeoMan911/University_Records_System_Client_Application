@@ -21,13 +21,14 @@ namespace University_Records_System_Client_Application
     {
         private bool Window_Closing;
         private System.Timers.Timer Animation_Timer = new System.Timers.Timer();
-        protected static string Current_Page;
+
 
         private static Log_In log_in = new Log_In();
         private static Register register = new Register();
 
 
-
+        private static Frame MainWindow_Frame;
+        private static Log_In_Or_Register log_in_or_register;
 
 
 
@@ -159,18 +160,19 @@ namespace University_Records_System_Client_Application
             Animation_Timer.Interval = 1000;
             Animation_Timer.Start();
 
-
+            MainWindow_Frame = Navigation_Frame;
+            log_in_or_register = this;
 
 
             // IF A CACHE FILE EXISTS IN THE APPLICATION'S DIRECTORY NAVIGATE TO THE APPLICATION'S MAIN WINDOW
             // OTHERWISE NAVIGATE TO THE LOG IN PAGE
-            if(await Application_Cryptographic_Services_Mitigator.Load_Log_In_Session_Key_Initiator() == true)
+            if (await Application_Cryptographic_Services_Mitigator.Load_Log_In_Session_Key_Initiator() == true)
             {
-                Current_Page = "Main Window";
+                Navigate("Main Window");
             }
             else
             {
-                Current_Page = "Log In Page";
+                Navigate("Log In Page");
             }
         }
 
@@ -193,65 +195,7 @@ namespace University_Records_System_Client_Application
                                 if (Window_Closing != true)
                                 {
 
-                                    /*
-                                            * THIS IS REMOVING THE PREVIOUS PAGE OBJECT FROM THE MEMORY
-                                              BY REMOVING IT FROM THE WINDOW'S NAVIGATION FRAME OBJECT
-
-
-
-                                            if(Navigation_Frame.NavigationService.CanGoBack == true)
-                                            {
-                                                Navigation_Frame.NavigationService.RemoveBackEntry();
-                                                Navigation_Frame.RemoveBackEntry();
-                                            }
-
-                                     */
-
-
-
-
-
-                                    switch (Current_Page)
-                                    {
-                                        case "Log In Page":
-                                            if(Navigation_Frame.NavigationService.CanGoBack == true)
-                                            {
-                                                Navigation_Frame.NavigationService.RemoveBackEntry();
-                                                Navigation_Frame.RemoveBackEntry();
-                                            }
-
-                                            Navigation_Frame.NavigationService.Navigate(log_in);
-
-                                            Current_Page = null;
-                                            break;
-
-                                        case "Register Page":
-                                            if (Navigation_Frame.NavigationService.CanGoBack == true)
-                                            {
-                                                Navigation_Frame.NavigationService.RemoveBackEntry();
-                                                Navigation_Frame.RemoveBackEntry();
-                                            }
-
-                                            Navigation_Frame.NavigationService.Navigate(register);
-
-                                            Current_Page = null;
-                                            break;
-
-                                        case "Main Window":
-                                            if (Navigation_Frame.NavigationService.CanGoBack == true)
-                                            {
-                                                Navigation_Frame.NavigationService.RemoveBackEntry();
-                                                Navigation_Frame.RemoveBackEntry();
-                                            }
-
-                                            MainWindow mainWindow = new MainWindow();
-                                            mainWindow.Show();
-
-                                            this.Close();
-                                            break;
-                                    }
-
-                                    Current_Page = null;
+                                    
                                 }
                                 else
                                 {
@@ -304,7 +248,6 @@ namespace University_Records_System_Client_Application
 
 
 
-
         private void Window_Is_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             Window_Closing = false;
@@ -314,6 +257,38 @@ namespace University_Records_System_Client_Application
                 Animation_Timer.Close();
                 Animation_Timer.Dispose();
             }
+        }
+
+
+
+        public static void Navigate(string option)
+        {
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+                if (MainWindow_Frame.NavigationService.CanGoBack == true)
+                {
+                    MainWindow_Frame.NavigationService.RemoveBackEntry();
+                    MainWindow_Frame.RemoveBackEntry();
+                }
+
+                switch (option)
+                {
+                    case "Log In Page":
+                        MainWindow_Frame.NavigationService.Navigate(log_in);
+                        break;
+
+                    case "Register Page":
+                        MainWindow_Frame.NavigationService.Navigate(register);
+                        break;
+
+                    case "Main Window":
+                        MainWindow mainWindow = new MainWindow();
+                        mainWindow.Show();
+
+                        log_in_or_register.Close();
+                        break;
+                }
+            });
         }
 
     }

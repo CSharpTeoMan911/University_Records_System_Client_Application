@@ -9,8 +9,8 @@
 
     <Window.Background>
         <LinearGradientBrush StartPoint="0.5, 1" EndPoint="0, 1">
-            <GradientStop x:Name="Window_Offset" Color="White" Offset="1"/>
-            <GradientStop Color="#FFACADAD"/>
+            <GradientStop x:Name="Window_Offset" Color="#FF272525" Offset="1"/>
+            <GradientStop Color="#FF3C3C3C"/>
         </LinearGradientBrush>
     </Window.Background>
     
@@ -39,6 +39,74 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
 
+
+        <Frame x:Name="Page_Navigation_Frame" NavigationUIVisibility="Hidden" Margin="0,50,0,0" Grid.Row="0" Grid.RowSpan="9" Grid.ColumnSpan="9"/>
+
+        <StackPanel x:Name="Main_Menu_Panel" Margin="0,40,0,0" Grid.ColumnSpan="4" Grid.RowSpan="5" HorizontalAlignment="Left" VerticalAlignment="Top" Height="0" Width="140">
+
+            <StackPanel.Clip>
+                <RectangleGeometry Rect="0,0,140,160" RadiusX="10" RadiusY="10"/>
+            </StackPanel.Clip>
+            
+            <StackPanel.Background>
+                <LinearGradientBrush StartPoint="0.5, 1" EndPoint="0, 1">
+                    <GradientStop x:Name="Main_Menu_Panel_Offset" Color="#FF0090FF" Offset="1"/>
+                    <GradientStop Color="#FF095780"/>
+                </LinearGradientBrush>
+            </StackPanel.Background>
+
+            <Button x:Name="Students_Button" HorizontalAlignment="Center" Margin="0,20,0,0" FontFamily="Bahnschrift, Segoe MDL2 Assets" FontSize="20" Content="&#xE77B; Students" Height="35" Style="{StaticResource Blue_On_Hover_Margin_Button_Style}" Click="Navigate_To_Students_Page">
+                <Button.Background>
+                    <LinearGradientBrush StartPoint="0.5, 1" EndPoint="0, 1">
+                        <GradientStop x:Name="Courses_Button_Background__Offset" Color="#FF2B2B2B" Offset="1"/>
+                        <GradientStop Color="Black"/>
+                    </LinearGradientBrush>
+                </Button.Background>
+
+                <Button.Foreground>
+                    <LinearGradientBrush StartPoint="0.5, 1" EndPoint="0, 1">
+                        <GradientStop x:Name="Courses_Button_Foreground__Offset" Color="#FF0090FF" Offset="1"/>
+                        <GradientStop Color="#FF095780"/>
+                    </LinearGradientBrush>
+                </Button.Foreground>
+            </Button>
+
+            <Button x:Name="Courses_Button" HorizontalAlignment="Center" Margin="0,10,0,0" FontFamily="Bahnschrift, Segoe MDL2 Assets" FontSize="20" Content="&#xE82D;  Courses" Height="35" Width="{Binding ElementName=Students_Button, Path=ActualWidth}" Style="{StaticResource Blue_On_Hover_Margin_Button_Style}" Click="Navigate_To_Courses_Page">
+                <Button.Background>
+                    <LinearGradientBrush StartPoint="0.5, 1" EndPoint="0, 1">
+                        <GradientStop x:Name="Students_Button_Background__Offset" Color="#FF2B2B2B" Offset="1"/>
+                        <GradientStop Color="Black"/>
+                    </LinearGradientBrush>
+                </Button.Background>
+
+                <Button.Foreground>
+                    <LinearGradientBrush StartPoint="0.5, 1" EndPoint="0, 1">
+                        <GradientStop x:Name="Students_Button_Foreground__Offset" Color="#FF0090FF" Offset="1"/>
+                        <GradientStop Color="#FF095780"/>
+                    </LinearGradientBrush>
+                </Button.Foreground>
+            </Button>
+
+            <Button HorizontalAlignment="Center" Margin="0,10,0,0" FontFamily="Bahnschrift, Segoe MDL2 Assets" FontSize="20" Content="&#xF3B1; Log out  " Height="35" Style="{StaticResource Blue_On_Hover_Margin_Button_Style}" Click="Log_Out_Account">
+                <Button.Background>
+                    <LinearGradientBrush StartPoint="0.5, 1" EndPoint="0, 1">
+                        <GradientStop x:Name="Log_Out_Button_Background__Offset" Color="#FF2B2B2B" Offset="1"/>
+                        <GradientStop Color="Black"/>
+                    </LinearGradientBrush>
+                </Button.Background>
+
+                <Button.Foreground>
+                    <LinearGradientBrush StartPoint="0.5, 1" EndPoint="0, 1">
+                        <GradientStop x:Name="Log_Out_Button_Foreground__Offset" Color="#FF535252" Offset="1"/>
+                        <GradientStop Color="#FF8D9195"/>
+                    </LinearGradientBrush>
+                </Button.Foreground>
+            </Button>
+
+        </StackPanel>
+
+
+
         <Rectangle x:Name="Window_Handle" Grid.ColumnSpan="9" MouseDown="Move_The_Window" Height="50" VerticalAlignment="Top">
             <Rectangle.Fill>
                 <LinearGradientBrush StartPoint="0.5, 1" EndPoint="0, 1">
@@ -49,6 +117,7 @@
         </Rectangle>
 
         <StackPanel Grid.Column="7" Grid.RowSpan="2" Grid.ColumnSpan="2" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="10" Orientation="Horizontal">
+
             <Button x:Name="Minimise_The_Window_Button" FontSize="20" Margin="0,0,10,0" FontFamily="Segoe MDL2 Assets" Content="&#xEF2D;" Click="Minimise_The_Window" Style="{StaticResource Blue_On_Hover_Margin_Button_Style}">
                 <Button.Foreground>
                     <LinearGradientBrush StartPoint="0.5, 1" EndPoint="0, 1">
@@ -86,16 +155,8 @@
             </Button.Foreground>
         </Button>
 
-        <Frame x:Name="Page_Navigation_Frame" NavigationUIVisibility="Hidden" Margin="0,50,0,0" Grid.RowSpan="9" Grid.ColumnSpan="9"/>
+        
 
-        <StackPanel x:Name="Main_Menu_Panel" Margin="0,50,0,0" Grid.ColumnSpan="3" Grid.RowSpan="5" HorizontalAlignment="Left" VerticalAlignment="Top" Height="0" Width="200">
-            <StackPanel.Background>
-                <LinearGradientBrush StartPoint="0.5, 1" EndPoint="0, 1">
-                    <GradientStop x:Name="Main_Menu_Panel_Offset" Color="#FF0090FF" Offset="1"/>
-                    <GradientStop Color="#FF095780"/>
-                </LinearGradientBrush>
-            </StackPanel.Background>
-        </StackPanel>
 
     </Grid>
 </Window>

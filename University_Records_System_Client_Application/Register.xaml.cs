@@ -25,14 +25,6 @@ namespace University_Records_System_Client_Application
             InitializeComponent();
         }
 
-        private class Navigation_Mitigator:Log_In_Or_Register
-        {
-            internal static void Navigate()
-            {
-                Current_Page = "Log In Page";
-            }
-        }
-
         private class Server_Connection_Mitigator:Server_Connections
         {
             internal static async Task<byte[]> Connection_Initialisation_Procedure<Password__Or__Binary_Content>(string email__or__log_in_session_key, Password__Or__Binary_Content password__or__binary_content, string function, bool binary_file)
@@ -58,7 +50,7 @@ namespace University_Records_System_Client_Application
 
                                 if(Encoding.UTF8.GetString(registration_result) == "Registration successful")
                                 {
-                                    Navigation_Mitigator.Navigate();
+                                    Log_In_Or_Register.Navigate("Log In Page");
                                 }
                             }
                         }
@@ -77,7 +69,7 @@ namespace University_Records_System_Client_Application
                     {
                         if (this != null)
                         {
-                            Navigation_Mitigator.Navigate();
+                            Log_In_Or_Register.Navigate("Log In Page");
                         }
                     }
                 }

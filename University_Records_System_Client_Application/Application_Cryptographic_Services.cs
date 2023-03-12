@@ -259,5 +259,24 @@ namespace University_Records_System_Client_Application
 
 
 
+        protected static Task<bool> Delete_Log_In_Sesion_Key()
+        {
+            try
+            {
+                if(System.IO.File.Exists(Environment.CurrentDirectory + "\\user_cache.json"))
+                {
+                    System.IO.File.Delete(Environment.CurrentDirectory + "\\user_cache.json");
+                }
+
+                return Task.FromResult(true);
+            }
+            catch 
+            {
+                return Task.FromResult(false);
+            }
+        }
+
+
+
     }
 }

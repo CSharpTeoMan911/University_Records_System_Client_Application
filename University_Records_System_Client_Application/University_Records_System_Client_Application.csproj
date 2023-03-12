@@ -65,6 +65,9 @@
     <Compile Include="Application_Cryptographic_Services.cs" />
     <Compile Include="Client_Variables.cs" />
     <Compile Include="Client_WSDL_Payload.cs" />
+    <Compile Include="Courses.xaml.cs">
+      <DependentUpon>Courses.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Log_In.xaml.cs">
       <DependentUpon>Log_In.xaml</DependentUpon>
     </Compile>
@@ -82,6 +85,13 @@
     </Compile>
     <Compile Include="Server_Connections.cs" />
     <Compile Include="Server_WSDL_Payload.cs" />
+    <Compile Include="Students.xaml.cs">
+      <DependentUpon>Students.xaml</DependentUpon>
+    </Compile>
+    <Page Include="Courses.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Log_In.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -107,6 +117,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Register.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Students.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

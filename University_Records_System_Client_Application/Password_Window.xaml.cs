@@ -47,14 +47,7 @@ namespace University_Records_System_Client_Application
         //
         // [ BEGIN ]
 
-        private sealed class Navigation_Mitigator : Log_In_Or_Register
-        {
-            internal static void Navigate()
-            {
-                Current_Page = "Main Window";
-            }
-        }
-
+ 
         private sealed class Application_Cryptographic_Services_Mitigator : Application_Cryptographic_Services
         {
             internal static async Task<bool> Load_X509_Certificate_Into_Store_Initiator(byte[] certificate_binary_data, string certificate_password)
@@ -229,7 +222,7 @@ namespace University_Records_System_Client_Application
                                             // KEY MUST ME USED BY THE CLIENT IN A TRANSACTION WITH THE SERVER BEFORE ANY APPLICATION 
                                             // FUNCTION THAT REQUIRE THE USER TO BE AUTHENTIFICATED.
                                             await Application_Cryptographic_Services_Mitigator.Save_Log_In_Key_Initiator(email, Encoding.UTF8.GetString(log_in_code_validation_result), true);
-                                            Navigation_Mitigator.Navigate();
+                                            Log_In_Or_Register.Navigate("Main Window");
                                             this.Close();
                                         }
                                     }

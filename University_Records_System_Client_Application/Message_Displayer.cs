@@ -30,6 +30,10 @@ namespace University_Records_System_Client_Application
                         MessageBox.Show("The email address provided is not valid.", "Invalid email address", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK);
                         break;
 
+                    case "Invalid password":
+                        MessageBox.Show("The password provided is not valid.", "Invalid password", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK);
+                        break;
+
                     case "Password does not contain the amount of characters required":
                         MessageBox.Show("The password provided is less than 6 characters long", "Invalid password", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK);
                         break;

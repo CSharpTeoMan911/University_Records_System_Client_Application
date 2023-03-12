@@ -25,7 +25,8 @@ namespace University_Records_System_Client_Application
         private short Main_Menu_Expanded_Or_Contracted;
         private System.Timers.Timer Animation_Timer = new System.Timers.Timer();
 
-        protected static string Navigated_Window;
+        private static Students students = new Students();
+        private static Courses courses = new Courses();
 
 
         // UI RELATED OBJECT VALUES
@@ -44,11 +45,6 @@ namespace University_Records_System_Client_Application
         }
 
 
-
-
-
-
-
         // PRIVATE SEALED CLASSES THAT ACCESS SENSITIVE INFORMATION.
         //
         // THESE CLASSES INTERACT WITH THE SENSITIVE METHODS USING
@@ -62,26 +58,32 @@ namespace University_Records_System_Client_Application
 
         private class Server_Connections_Mitigator:Server_Connections
         {
-
+            internal static async Task<byte[]> Connection_Initialisation_Procedure<Password__Or__Binary_Content>(string email__or__log_in_session_key, Password__Or__Binary_Content password__or__binary_content, string function, bool binary_file)
+            {
+                return await Initiate_Server_Connection<Password__Or__Binary_Content>(email__or__log_in_session_key as string, password__or__binary_content, function, binary_file);
+            }
         }
 
-        /*
-        private class Main_Window_Navigation_Mitigator:MainWindow
+        private sealed class Client_Variables_Mitigator:Client_Variables
         {
-            internal static void Navigate_To_Students()
+            internal static string Get_User_Email()
             {
-                //Navigated_Window = ""
+                return email;
             }
 
-            internal static void Navigate_To_Courses()
+            internal static string Get_User_Log_In_Session_Key()
             {
-
+                return log_in_session_key;
             }
         }
-        */
 
-        // [ END ]
-
+        private sealed class Application_Cryptographic_Services_Mitigator : Application_Cryptographic_Services
+        {
+            internal async static Task<bool> Delete_User_Credential_Cache()
+            {
+                return await Delete_Log_In_Sesion_Key();
+            }
+        }
 
 
 
@@ -247,24 +249,13 @@ namespace University_Records_System_Client_Application
                                     }
 
 
-                                  
-                                    switch(Navigated_Window)
-                                    {
-                                        case "Students":
-                                            
-                                            break;
-
-                                        case "Courses":
-                                            break;
-                                    }
-
 
                                     switch(Main_Menu_Expanded_Or_Contracted)
                                     {
                                         case 1:
-                                            if(Main_Menu_Panel.Height < 200)
+                                            if(Main_Menu_Panel.Height < 160)
                                             {
-                                                Main_Menu_Panel.Height += 10;
+                                                Main_Menu_Panel.Height += 20;
                                             }
                                             break;
 
@@ -344,8 +335,16 @@ namespace University_Records_System_Client_Application
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             Animation_Timer.Elapsed += Animation_Timer_Elapsed;
-            Animation_Timer.Interval = 10;
+            Animation_Timer.Interval = 20;
             Animation_Timer.Start();
+
+
+            if (Page_Navigation_Frame.NavigationService.CanGoBack == true)
+            {
+                Page_Navigation_Frame.NavigationService.RemoveBackEntry();
+            }
+
+            Page_Navigation_Frame.NavigationService.Navigate(courses);
         }
 
         private void Window_Is_Closing(object sender, System.ComponentModel.CancelEventArgs e)
@@ -376,6 +375,90 @@ namespace University_Records_System_Client_Application
                             if (Window_Closing != true)
                             {
                                 Main_Menu_Expanded_Or_Contracted++;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        private async void Log_Out_Account(object sender, RoutedEventArgs e)
+        {
+            if (Application.Current != null)
+            {
+                if (Application.Current.Dispatcher != null)
+                {
+                    if (Application.Current.Dispatcher.HasShutdownStarted != true)
+                    {
+                        if (Application.Current.MainWindow != null)
+                        {
+                            if (Window_Closing != true)
+                            {
+                                string log_in_session_key = Client_Variables_Mitigator.Get_User_Log_In_Session_Key();
+
+                                byte[] log_out_result = await Server_Connections_Mitigator.Connection_Initialisation_Procedure<string>(log_in_session_key, String.Empty, "Account log out", false);
+
+                                Message_Displayer.Display_Message(log_out_result);
+
+                                if(Encoding.UTF8.GetString(log_out_result) == "Logged out")
+                                {
+                                    await Application_Cryptographic_Services_Mitigator.Delete_User_Credential_Cache();
+
+                                    Log_In_Or_Register log_In_Or_Register = new Log_In_Or_Register();
+                                    log_In_Or_Register.Show();
+
+                                    this.Close();
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        private void Navigate_To_Students_Page(object sender, RoutedEventArgs e)
+        {
+            if (Application.Current != null)
+            {
+                if (Application.Current.Dispatcher != null)
+                {
+                    if (Application.Current.Dispatcher.HasShutdownStarted != true)
+                    {
+                        if (Application.Current.MainWindow != null)
+                        {
+                            if (Window_Closing != true)
+                            {
+                                if (Page_Navigation_Frame.NavigationService.CanGoBack == true)
+                                {
+                                    Page_Navigation_Frame.NavigationService.RemoveBackEntry();
+                                }
+
+                                Page_Navigation_Frame.NavigationService.Navigate(students);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        private void Navigate_To_Courses_Page(object sender, RoutedEventArgs e)
+        {
+            if (Application.Current != null)
+            {
+                if (Application.Current.Dispatcher != null)
+                {
+                    if (Application.Current.Dispatcher.HasShutdownStarted != true)
+                    {
+                        if (Application.Current.MainWindow != null)
+                        {
+                            if (Window_Closing != true)
+                            {
+                                if (Page_Navigation_Frame.NavigationService.CanGoBack == true)
+                                {
+                                    Page_Navigation_Frame.NavigationService.RemoveBackEntry();
+                                }
+
+                                Page_Navigation_Frame.NavigationService.Navigate(courses);
                             }
                         }
                     }
