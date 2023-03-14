@@ -20,6 +20,14 @@ namespace University_Records_System_Client_Application
         //
         // [ BEGIN ]
 
+        private sealed class Server_Connection_Mitigator : Server_Connections
+        {
+            internal static async Task<byte[]> Connection_Initialisation_Procedure<Password__Or__Binary_Content>(string email__or__log_in_session_key, Password__Or__Binary_Content password__or__binary_content, string function, bool binary_file)
+            {
+                return await Initiate_Server_Connection<Password__Or__Binary_Content>(email__or__log_in_session_key as string, password__or__binary_content, function, binary_file);
+            }
+        }
+
         // [ END ]
 
 
@@ -199,7 +207,7 @@ namespace University_Records_System_Client_Application
         // LOAD THE EMAIL AND LOG IN SESSION KEY IN THE 
         // APPLICATION
 
-        protected static Task<bool> Load_Log_In_Session_Key()
+        protected static async Task<bool> Load_Log_In_Session_Key()
         {
             bool log_in_session_result = false;
 
@@ -223,13 +231,28 @@ namespace University_Records_System_Client_Application
 
                             email = log_In_Key_Cache.email;
                             log_in_session_key = log_In_Key_Cache.log_in_session_key;
-                           
-                            log_in_session_result = true;
+
+                            byte[] log_in_session_key_validation_result = await Server_Connection_Mitigator.Connection_Initialisation_Procedure<string>(log_in_session_key, String.Empty, "Log in session key validation", false);
+
+                            Message_Displayer.Display_Message(log_in_session_key_validation_result);
+
+                            if(Encoding.UTF8.GetString(log_in_session_key_validation_result) == "Log in session key validated")
+                            {
+                                log_in_session_result = true;
+                            }
+                            else if(Encoding.UTF8.GetString(log_in_session_key_validation_result) == "Invalid log in session key")
+                            {
+                                try
+                                {
+                                    json_reader.Close();
+                                    streamReader.Close();
+
+                                    await Delete_Log_In_Sesion_Key();
+                                }
+                                catch { }
+                            }
                         }
-                        catch(Exception E)
-                        {
-                            System.Diagnostics.Debug.WriteLine(E.ToString());
-                        }
+                        catch { }
                     }
                     catch
                     {
@@ -254,7 +277,7 @@ namespace University_Records_System_Client_Application
 
             }
 
-            return Task.FromResult(log_in_session_result);
+            return log_in_session_result;
         }
 
 

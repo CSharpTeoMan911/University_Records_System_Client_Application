@@ -23,7 +23,7 @@ namespace University_Records_System_Client_Application
         private static bool Window_Closing;
         private short Maximised_Or_Normalised;
         private short Main_Menu_Expanded_Or_Contracted;
-        private System.Timers.Timer Animation_Timer = new System.Timers.Timer();
+        private System.Timers.Timer Animation_Timer;
 
         private static Students students = new Students();
         private static Courses courses = new Courses();
@@ -85,7 +85,7 @@ namespace University_Records_System_Client_Application
             }
         }
 
-
+        // [ END ]
 
 
 
@@ -334,6 +334,9 @@ namespace University_Records_System_Client_Application
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            Window_Closing = false;
+
+            Animation_Timer = new System.Timers.Timer();
             Animation_Timer.Elapsed += Animation_Timer_Elapsed;
             Animation_Timer.Interval = 20;
             Animation_Timer.Start();

@@ -65,6 +65,10 @@ namespace University_Records_System_Client_Application
                     case "Wrong log in code":
                         MessageBox.Show("Enter a valid log in code.", "Log in unsuccessful", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK);
                         break;
+
+                    case "Invalid log in session key":
+                        MessageBox.Show("Please log in again.", "Log in session expired", MessageBoxButton.OK, MessageBoxImage.Information, MessageBoxResult.OK);
+                        break;
                 }
             });
         }

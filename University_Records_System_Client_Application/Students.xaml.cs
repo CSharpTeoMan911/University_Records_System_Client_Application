@@ -42,5 +42,10 @@ namespace University_Records_System_Client_Application
                 return await Initiate_Server_Connection<Password__Or__Binary_Content>(email__or__log_in_session_key as string, password__or__binary_content, function, binary_file);
             }
         }
+
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
