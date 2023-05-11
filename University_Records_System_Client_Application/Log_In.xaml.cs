@@ -39,13 +39,7 @@ namespace University_Records_System_Client_Application
         //
         // [ BEGIN ]
 
-        private sealed class Server_Connection_Mitigator:Server_Connections
-        {
-            internal static async Task<byte[]> Connection_Initialisation_Procedure<Password__Or__Binary_Content>(string email__or__log_in_session_key, Password__Or__Binary_Content password__or__binary_content, string function, bool binary_file)
-            {
-                return await Initiate_Server_Connection<Password__Or__Binary_Content>(email__or__log_in_session_key as string, password__or__binary_content, function, binary_file);
-            }
-        }
+  
 
         private sealed class Client_Variables_Mitigator:Client_Variables
         {
@@ -110,7 +104,7 @@ namespace University_Records_System_Client_Application
                             // ON ANOTHER THREAD
                             System.Threading.Thread connection_thread = new System.Threading.Thread(async () =>
                             {
-                                byte[] log_in_result = await Server_Connection_Mitigator.Connection_Initialisation_Procedure<string>(email, password, "Log In", false);
+                                byte[] log_in_result = await Server_Connections.Initiate_Server_Connection<string>(email, password, "Log In", false);
 
 
 
@@ -221,6 +215,7 @@ namespace University_Records_System_Client_Application
                     }
                 }
             }
+
         }
     }
 }

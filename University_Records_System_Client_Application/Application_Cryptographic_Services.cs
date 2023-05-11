@@ -9,33 +9,6 @@ namespace University_Records_System_Client_Application
     class Application_Cryptographic_Services : Client_Variables
     {
 
-        // PRIVATE SEALED CLASSES THAT ACCESS SENSITIVE INFORMATION.
-        //
-        // THESE CLASSES INTERACT WITH THE SENSITIVE METHODS USING
-        // INTERNAL METHODS, MENING THAT THESE METHODS CAN BE
-        // ACCESSED ONLY IN THE MAIN CLASS THAT CONTAINS THE
-        // SEALED CLASS.
-        //
-        //
-        //
-        // [ BEGIN ]
-
-        private sealed class Server_Connection_Mitigator : Server_Connections
-        {
-            internal static async Task<byte[]> Connection_Initialisation_Procedure<Password__Or__Binary_Content>(string email__or__log_in_session_key, Password__Or__Binary_Content password__or__binary_content, string function, bool binary_file)
-            {
-                return await Initiate_Server_Connection<Password__Or__Binary_Content>(email__or__log_in_session_key as string, password__or__binary_content, function, binary_file);
-            }
-        }
-
-        // [ END ]
-
-
-
-
-
-
-
         // CREATE A HASH FROM A STRING INPUT USING THE SHA256 ALGORITHM
         protected static Task<byte[]> Content_Hasher(string content)
         {
@@ -232,7 +205,7 @@ namespace University_Records_System_Client_Application
                             email = log_In_Key_Cache.email;
                             log_in_session_key = log_In_Key_Cache.log_in_session_key;
 
-                            byte[] log_in_session_key_validation_result = await Server_Connection_Mitigator.Connection_Initialisation_Procedure<string>(log_in_session_key, String.Empty, "Log in session key validation", false);
+                            byte[] log_in_session_key_validation_result = await Server_Connections.Initiate_Server_Connection<string>(log_in_session_key, String.Empty, "Log in session key validation", false);
 
                             Message_Displayer.Display_Message(log_in_session_key_validation_result);
 

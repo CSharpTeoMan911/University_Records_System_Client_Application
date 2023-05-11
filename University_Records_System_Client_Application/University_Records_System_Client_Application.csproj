@@ -68,6 +68,8 @@
     <Compile Include="Courses.xaml.cs">
       <DependentUpon>Courses.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Dispatcher_Controller.cs" />
+    <Compile Include="Functions_Dispatcher.cs" />
     <Compile Include="Log_In.xaml.cs">
       <DependentUpon>Log_In.xaml</DependentUpon>
     </Compile>
@@ -75,6 +77,7 @@
     <Compile Include="Log_In_Or_Register.xaml.cs">
       <DependentUpon>Log_In_Or_Register.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Main_Dispatcher.cs" />
     <Compile Include="Message_Displayer.cs" />
     <Compile Include="Password_Window.xaml.cs">
       <DependentUpon>Password_Window.xaml</DependentUpon>

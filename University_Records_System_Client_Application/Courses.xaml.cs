@@ -35,14 +35,6 @@ namespace University_Records_System_Client_Application
         }
 
 
-        private class Server_Connections_Mitigator : Server_Connections
-        {
-            internal static async Task<byte[]> Connection_Initialisation_Procedure<Password__Or__Binary_Content>(string email__or__log_in_session_key, Password__Or__Binary_Content password__or__binary_content, string function, bool binary_file)
-            {
-                return await Initiate_Server_Connection<Password__Or__Binary_Content>(email__or__log_in_session_key as string, password__or__binary_content, function, binary_file);
-            }
-        }
-
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
 

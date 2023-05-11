@@ -45,7 +45,7 @@ namespace University_Records_System_Client_Application
 
 
 
-        protected static async Task<byte[]> Initiate_Server_Connection<Password__Or__Binary_Content>(string email__or__log_in_session_key, Password__Or__Binary_Content password__or__binary_content, string function, bool binary_file)
+        internal static async Task<byte[]> Initiate_Server_Connection<Password__Or__Binary_Content>(string email__or__log_in_session_key, Password__Or__Binary_Content password__or__binary_content, string function, bool binary_file)
         {
             byte[] return_value = Encoding.UTF8.GetBytes("Connection error");
             byte[] client_response = Encoding.UTF8.GetBytes("OK");
@@ -116,28 +116,28 @@ namespace University_Records_System_Client_Application
 
 
 
-                            await Calculate_Connection_Timeout(client, is_binary_file.Length, bytes_per_second);
+                            await Calculate_Connection_Timeout(secure_client_stream, is_binary_file.Length, bytes_per_second);
                             await secure_client_stream.WriteAsync(is_binary_file, 0, is_binary_file.Length);
 
 
 
 
 
-                            await Calculate_Connection_Timeout(client, server_response.Length, bytes_per_second);
+                            await Calculate_Connection_Timeout(secure_client_stream, server_response.Length, bytes_per_second);
                             await secure_client_stream.ReadAsync(server_response, 0, server_response.Length);
 
 
 
 
 
-                            await Calculate_Connection_Timeout(client, serialised_payload_length.Length, bytes_per_second);
+                            await Calculate_Connection_Timeout(secure_client_stream, serialised_payload_length.Length, bytes_per_second);
                             await secure_client_stream.WriteAsync(serialised_payload_length, 0, serialised_payload_length.Length);
 
 
 
 
 
-                            await Calculate_Connection_Timeout(client, server_response.Length, bytes_per_second);
+                            await Calculate_Connection_Timeout(secure_client_stream, server_response.Length, bytes_per_second);
                             await secure_client_stream.ReadAsync(server_response, 0, server_response.Length);
 
 
@@ -145,7 +145,7 @@ namespace University_Records_System_Client_Application
 
 
 
-                            await Calculate_Connection_Timeout(client, serialised_payload.Length, bytes_per_second);
+                            await Calculate_Connection_Timeout(secure_client_stream, serialised_payload.Length, bytes_per_second);
 
                             switch (binary_file)
                             {
@@ -171,14 +171,14 @@ namespace University_Records_System_Client_Application
 
 
                             byte[] server_payload_length = new byte[1024];
-                            await Calculate_Connection_Timeout(client, server_payload_length.Length, bytes_per_second);
+                            await Calculate_Connection_Timeout(secure_client_stream, server_payload_length.Length, bytes_per_second);
                             await secure_client_stream.ReadAsync(server_payload_length, 0, server_payload_length.Length);
 
 
 
 
 
-                            await Calculate_Connection_Timeout(client, client_response.Length, bytes_per_second);
+                            await Calculate_Connection_Timeout(secure_client_stream, client_response.Length, bytes_per_second);
                             await secure_client_stream.WriteAsync(client_response, 0, client_response.Length);
 
 
@@ -187,7 +187,7 @@ namespace University_Records_System_Client_Application
 
 
                             byte[] server_payload = new byte[BitConverter.ToInt32(server_payload_length, 0)];
-                            await Calculate_Connection_Timeout(client, server_payload.Length, bytes_per_second);
+                            await Calculate_Connection_Timeout(secure_client_stream, server_payload.Length, bytes_per_second);
 
 
 
@@ -353,19 +353,19 @@ namespace University_Records_System_Client_Application
 
          */
 
-        private static Task<int> Calculate_Connection_Timeout(System.Net.Sockets.Socket client, int payload_size, int bytes_per_second)
+        private static Task<int> Calculate_Connection_Timeout(System.Net.Security.SslStream secure_client_stream, int payload_size, int bytes_per_second)
         {
             int seconds = 1000 * (payload_size / bytes_per_second) + 1000;
 
-            if(seconds > 1000)
+            if (seconds > 1000)
             {
-                client.SendTimeout = seconds;
-                client.ReceiveTimeout = seconds;
+                secure_client_stream.WriteTimeout = seconds;
+                secure_client_stream.ReadTimeout = seconds;
             }
             else
             {
-                client.SendTimeout = 1000;
-                client.ReceiveTimeout = 1000;
+                secure_client_stream.WriteTimeout = 1000;
+                secure_client_stream.ReadTimeout = 1000;
             }
 
 
