@@ -28,6 +28,8 @@ namespace University_Records_System_Client_Application
         private static Students students = new Students();
         private static Courses courses = new Courses();
 
+        private static Dispatcher_Controller controller = new Dispatcher_Controller();
+
 
         // UI RELATED OBJECT VALUES
         //
@@ -43,49 +45,6 @@ namespace University_Records_System_Client_Application
         {
             InitializeComponent();
         }
-
-
-        // PRIVATE SEALED CLASSES THAT ACCESS SENSITIVE INFORMATION.
-        //
-        // THESE CLASSES INTERACT WITH THE SENSITIVE METHODS USING
-        // INTERNAL METHODS, MENING THAT THESE METHODS CAN BE
-        // ACCESSED ONLY IN THE MAIN CLASS THAT CONTAINS THE
-        // SEALED CLASS.
-        //
-        //
-        //
-        // [ BEGIN ]
-
-        private class Server_Connections_Mitigator:Server_Connections
-        {
-            internal static async Task<byte[]> Connection_Initialisation_Procedure<Password__Or__Binary_Content>(string email__or__log_in_session_key, Password__Or__Binary_Content password__or__binary_content, string function, bool binary_file)
-            {
-                return await Initiate_Server_Connection<Password__Or__Binary_Content>(email__or__log_in_session_key as string, password__or__binary_content, function, binary_file);
-            }
-        }
-
-        private sealed class Client_Variables_Mitigator:Client_Variables
-        {
-            internal static string Get_User_Email()
-            {
-                return email;
-            }
-
-            internal static string Get_User_Log_In_Session_Key()
-            {
-                return log_in_session_key;
-            }
-        }
-
-        private sealed class Application_Cryptographic_Services_Mitigator : Application_Cryptographic_Services
-        {
-            internal async static Task<bool> Delete_User_Credential_Cache()
-            {
-                return await Delete_Log_In_Sesion_Key();
-            }
-        }
-
-        // [ END ]
 
 
 
@@ -397,15 +356,15 @@ namespace University_Records_System_Client_Application
                         {
                             if (Window_Closing != true)
                             {
-                                string log_in_session_key = Client_Variables_Mitigator.Get_User_Log_In_Session_Key();
+                                string log_in_session_key = (await Settings.Get_Value(Settings.Option.log_in_session_key) as string);
 
-                                byte[] log_out_result = await Server_Connections_Mitigator.Connection_Initialisation_Procedure<string>(log_in_session_key, String.Empty, "Account log out", false);
+                                byte[] log_out_result = await Server_Connections.Initiate_Server_Connection<string>(log_in_session_key, String.Empty, "Account log out", false);
 
                                 Message_Displayer.Display_Message(log_out_result);
 
                                 if(Encoding.UTF8.GetString(log_out_result) == "Logged out")
                                 {
-                                    await Application_Cryptographic_Services_Mitigator.Delete_User_Credential_Cache();
+                                    await controller.Delete_Log_In_Sesion_Key_Controller();
 
                                     Log_In_Or_Register log_In_Or_Register = new Log_In_Or_Register();
                                     log_In_Or_Register.Show();

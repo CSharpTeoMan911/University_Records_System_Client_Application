@@ -31,33 +31,7 @@ namespace University_Records_System_Client_Application
         private static Log_In_Or_Register log_in_or_register;
 
 
-
-
-        // PRIVATE SEALED CLASSES THAT ACCESS SENSITIVE INFORMATION.
-        //
-        // THESE CLASSES INTERACT WITH THE SENSITIVE METHODS USING
-        // INTERNAL METHODS, MENING THAT THESE METHODS CAN BE
-        // ACCESSED ONLY IN THE MAIN CLASS THAT CONTAINS THE
-        // SEALED CLASS.
-        //
-        //
-        //
-        // [ BEGIN ]
-
-        private sealed class Application_Cryptographic_Services_Mitigator : Application_Cryptographic_Services
-        {
-            internal static async Task<bool> Load_Log_In_Session_Key_Initiator()
-            {
-                return await Load_Log_In_Session_Key();
-            }
-        }
-
-        // [ END ]
-
-
-
-
-
+        private static Dispatcher_Controller controller = new Dispatcher_Controller();
 
 
 
@@ -166,7 +140,7 @@ namespace University_Records_System_Client_Application
 
             // IF A CACHE FILE EXISTS IN THE APPLICATION'S DIRECTORY NAVIGATE TO THE APPLICATION'S MAIN WINDOW
             // OTHERWISE NAVIGATE TO THE LOG IN PAGE
-            if (await Application_Cryptographic_Services_Mitigator.Load_Log_In_Session_Key_Initiator() == true)
+            if (await controller.Load_Log_In_Session_Key_Controller() == true)
             {
                 Navigate("Main Window");
             }

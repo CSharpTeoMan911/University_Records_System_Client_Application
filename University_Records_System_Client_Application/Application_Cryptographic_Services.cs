@@ -188,6 +188,7 @@ namespace University_Records_System_Client_Application
             if(System.IO.File.Exists("user_cache.json") == true)
             {
 
+
                 Newtonsoft.Json.JsonSerializer deserializer = new Newtonsoft.Json.JsonSerializer();
 
                 try

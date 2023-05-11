@@ -28,36 +28,6 @@ namespace University_Records_System_Client_Application
 
 
 
-        // PRIVATE SEALED CLASSES THAT ACCESS SENSITIVE INFORMATION.
-        //
-        // THESE CLASSES INTERACT WITH THE SENSITIVE METHODS USING
-        // INTERNAL METHODS, MENING THAT THESE METHODS CAN BE
-        // ACCESSED ONLY IN THE MAIN CLASS THAT CONTAINS THE
-        // SEALED CLASS.
-        //
-        //
-        //
-        // [ BEGIN ]
-
-  
-
-        private sealed class Client_Variables_Mitigator:Client_Variables
-        {
-            internal static void Keep_User_Logged_In()
-            {
-                keep_user_logged_in = true;
-            }
-
-            internal static void Do_Not_Keep_User_Logged_In()
-            {
-                keep_user_logged_in = false;
-            }
-        }
-
-        // [ END ]
-
-
-
 
 
 
@@ -179,7 +149,7 @@ namespace University_Records_System_Client_Application
 
 
 
-        private void Keep_User_Logged_In(object sender, RoutedEventArgs e)
+        private async void Keep_User_Logged_In(object sender, RoutedEventArgs e)
         {
             if (Application.Current != null)
             {
@@ -189,7 +159,7 @@ namespace University_Records_System_Client_Application
                     {
                         if (this != null)
                         {
-                            Client_Variables_Mitigator.Keep_User_Logged_In();
+                            await Settings.Set_Value(Settings.Option.keep_user_logged_in, true);
                         }
                     }
                 }
@@ -200,7 +170,7 @@ namespace University_Records_System_Client_Application
 
 
 
-        private void Do_Not_Keep_User_Logged_In(object sender, RoutedEventArgs e)
+        private async void Do_Not_Keep_User_Logged_In(object sender, RoutedEventArgs e)
         {
             if (Application.Current != null)
             {
@@ -210,7 +180,7 @@ namespace University_Records_System_Client_Application
                     {
                         if (this != null)
                         {
-                            Client_Variables_Mitigator.Do_Not_Keep_User_Logged_In();
+                            await Settings.Set_Value(Settings.Option.keep_user_logged_in, false);
                         }
                     }
                 }
