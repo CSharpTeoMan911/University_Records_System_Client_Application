@@ -1,17 +1,18 @@
-﻿using System;
+﻿using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Documents;
 
 namespace University_Records_System_Client_Application
 {
-    internal class Main_Dispatcher<Return_Type>:Application_Cryptographic_Services
+    internal class Main_Dispatcher:Application_Cryptographic_Services
     {
 
 
-        // OPERATIONS
-        private async Task<Return_Type> Dispatcher(Dispatcher_Controller.Option option, string content, byte[] certificate_binary_data, string certificate_password, string Email, string log_in_code, bool? keep_user_logged_in)
+        internal async Task<object> Dispatcher(Dispatcher_Controller.Option option, string content, byte[] certificate_binary_data, string certificate_password, string Email, string log_in_code, bool? keep_user_logged_in, object setter)
         {
             object result = new object();
 
@@ -36,39 +37,21 @@ namespace University_Records_System_Client_Application
                 case Dispatcher_Controller.Option.Load_Log_In_Session_Key:
                     result = await Load_Log_In_Session_Key();
                     break;
-            }
 
-            return (Return_Type)result;
-        }
-
-
-
-
-
-        // GETTERS
-        internal Task<Return_Type> Dispatcher(Dispatcher_Controller.Option option)
-        {
-            object result = new object();
-            switch (option)
-            {
                 case Dispatcher_Controller.Option.Get_Keep_User_Logged_In:
                     result = keep_user_logged_in;
                     break;
-            }
-            return Task.FromResult((Return_Type)result);
-        }
 
-
-        // SETTERS
-        internal Task<bool> Dispatcher<Value>(Dispatcher_Controller.Option option, Value value)
-        {
-            switch (option)
-            {
                 case Dispatcher_Controller.Option.Set_Keep_User_Logged_In:
-                    keep_user_logged_in = Convert.ToBoolean(value);
+                    keep_user_logged_in = (setter.GetType() == typeof(bool)) ? Convert.ToBoolean(setter) : keep_user_logged_in;
+                    result = Convert.ToBoolean(true);
                     break;
             }
-            return Task.FromResult(true);
+
+            return result;
         }
+
+
+
     }
 }
