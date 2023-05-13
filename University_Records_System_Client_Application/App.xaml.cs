@@ -13,5 +13,10 @@ namespace University_Records_System_Client_Application
     /// </summary>
     public partial class App : Application
     {
+        protected override async void OnStartup(StartupEventArgs e)
+        {
+            base.OnStartup(e);
+            await Settings.Settings_File_Operation(Settings.File_Option.Load_Settings_From_File);
+        }
     }
 }

@@ -92,6 +92,7 @@
     <Compile Include="Server_Connections.cs" />
     <Compile Include="Server_WSDL_Payload.cs" />
     <Compile Include="Settings.cs" />
+    <Compile Include="Settings_File.cs" />
     <Compile Include="Students.xaml.cs">
       <DependentUpon>Students.xaml</DependentUpon>
     </Compile>

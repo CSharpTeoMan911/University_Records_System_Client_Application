@@ -5,18 +5,105 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:University_Records_System_Client_Application"
         mc:Ignorable="d"
-        Title="Application_Settings" Height="400" Width="400" ResizeMode="NoResize" WindowStyle="None" AllowsTransparency="True" Opacity="0.85" Closing="Window_Is_Closing">
+        Title="Application_Settings" Height="400" Width="320" ResizeMode="NoResize" WindowStyle="None" AllowsTransparency="True" Opacity="0.95" Loaded="Window_Loaded" Closing="Window_Is_Closing">
 
     <Window.Clip>
-        <RectangleGeometry Rect="0,0,400,400" RadiusX="10" RadiusY="10"/>
+        <RectangleGeometry Rect="0,0,320,400" RadiusX="10" RadiusY="10"/>
     </Window.Clip>
 
     <Window.Background>
         <LinearGradientBrush StartPoint="0.5, 1" EndPoint="0, 1">
-            <GradientStop x:Name="Settings_Window_Offset" Color="#FF171717" Offset="1"/>
-            <GradientStop Color="#FF373838"/>
+            <GradientStop x:Name="Settings_Window_Offset" Color="#FF01050C" Offset="1"/>
+            <GradientStop Color="#FF1C2631"/>
         </LinearGradientBrush>
     </Window.Background>
+
+    <Window.Resources>
+        <Style x:Key="Grey_Ip_TextBox_Background_TextBox" TargetType="TextBox">
+            <Setter Property="Background">
+                <Setter.Value>
+                    <LinearGradientBrush StartPoint="0.5, 1" EndPoint="0, 1">
+                        <GradientStop x:Name="Grey_Background_TextBox_Offset" Color="#FF3D3E3E" Offset="1"/>
+                        <GradientStop Color="#FF7B7B7B"/>
+                    </LinearGradientBrush>
+                </Setter.Value>
+            </Setter>
+
+            <Setter Property="Foreground">
+                <Setter.Value>
+                    <LinearGradientBrush StartPoint="0.5, 1" EndPoint="0, 1">
+                        <GradientStop x:Name="Grey_Foreground_TextBox_Offset" Color="#FF0E2F5B" Offset="1"/>
+                        <GradientStop Color="#FF03285A"/>
+                    </LinearGradientBrush>
+                </Setter.Value>
+            </Setter>
+
+            <Setter Property="Clip">
+                <Setter.Value>
+                    <RectangleGeometry x:Name="Grey_Background_TextBox_Clip" Rect="0,0,60,28" RadiusX="5" RadiusY="5"/>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="Grey_Port_Number_TextBox_Background_TextBox" TargetType="TextBox">
+            <Setter Property="Background">
+                <Setter.Value>
+                    <LinearGradientBrush StartPoint="0.5, 1" EndPoint="0, 1">
+                        <GradientStop x:Name="Grey_Background_TextBox_Offset" Color="#FF3D3E3E" Offset="1"/>
+                        <GradientStop Color="#FF7B7B7B"/>
+                    </LinearGradientBrush>
+                </Setter.Value>
+            </Setter>
+
+            <Setter Property="Foreground">
+                <Setter.Value>
+                    <LinearGradientBrush StartPoint="0.5, 1" EndPoint="0, 1">
+                        <GradientStop x:Name="Grey_Foreground_TextBox_Offset" Color="#FF0E2F5B" Offset="1"/>
+                        <GradientStop Color="#FF03285A"/>
+                    </LinearGradientBrush>
+                </Setter.Value>
+            </Setter>
+            
+            <Setter Property="Clip">
+                <Setter.Value>
+                    <RectangleGeometry Rect="0,0,60,28" RadiusX="5" RadiusY="5"/>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="Bright_Blue_TextBlock" TargetType="TextBlock">
+            <Setter Property="Foreground">
+                <Setter.Value>
+                    <LinearGradientBrush StartPoint="0.5, 1" EndPoint="0, 1">
+                        <GradientStop x:Name="Bright_Blue_TextBlock_Offset" Color="#FF1C87DA" Offset="1"/>
+                        <GradientStop Color="#FF128DFF"/>
+                    </LinearGradientBrush>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="Dim_Blue_TextBlock_Control" TargetType="TextBlock">
+            <Setter Property="Foreground">
+                <Setter.Value>
+                    <LinearGradientBrush StartPoint="0.5, 1" EndPoint="0, 1">
+                        <GradientStop x:Name="Dim_Blue_Control_Offset" Color="#FF115386" Offset="1"/>
+                        <GradientStop Color="#FF086AC5"/>
+                    </LinearGradientBrush>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="Dim_Blue_Button_Control" TargetType="Button">
+            <Setter Property="Foreground">
+                <Setter.Value>
+                    <LinearGradientBrush StartPoint="0.5, 1" EndPoint="0, 1">
+                        <GradientStop x:Name="Dim_Blue_Control_Offset" Color="#FF115386" Offset="1"/>
+                        <GradientStop Color="#FF086AC5"/>
+                    </LinearGradientBrush>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
     
     <Grid>
         <Grid.ColumnDefinitions>
@@ -45,28 +132,54 @@
 
         <Rectangle Grid.ColumnSpan="9" Fill="Transparent" MouseDown="Move_The_Window"/>
 
-        <Button x:Name="Close_The_Window_Button" FontSize="20" FontFamily="Segoe MDL2 Assets" Content="&#xEF2C;" Style="{StaticResource Blue_On_Hover_Margin_Button_Style}" Grid.Column="9" HorizontalAlignment="Center" VerticalAlignment="Center" Click="Close_The_Window">
-            <Button.Foreground>
-                <LinearGradientBrush StartPoint="0.5, 1" EndPoint="0, 1">
-                    <GradientStop x:Name="Close_The_Window_Button_Offset" Color="#FF115386" Offset="1"/>
-                    <GradientStop Color="#FF086AC5"/>
-                </LinearGradientBrush>
-            </Button.Foreground>
-        </Button>
+        <Button x:Name="Close_The_Window_Button" FontSize="20" FontFamily="Segoe MDL2 Assets" Content="&#xEF2C;" Style="{StaticResource Dim_Blue_With_Blue_On_Hover_Margin_Button_Style}" Grid.Column="9" HorizontalAlignment="Center" VerticalAlignment="Center" Click="Close_The_Window"/>
 
-        <TextBlock FontFamily="Bahnschrift" Text="Settings" FontSize="40" Grid.RowSpan="2" Grid.ColumnSpan="9" VerticalAlignment="Center" HorizontalAlignment="Center">
-            <TextBlock.Foreground>
-                <LinearGradientBrush StartPoint="0.5, 1" EndPoint="0, 1">
-                    <GradientStop x:Name="Window_Title_TextBlock_Offset" Color="#FF115386" Offset="1"/>
-                    <GradientStop Color="#FF086AC5"/>
-                </LinearGradientBrush>
-            </TextBlock.Foreground>
-        </TextBlock>
+
+
+
+        <TextBlock Grid.RowSpan="2" Grid.ColumnSpan="9" FontFamily="Bahnschrift" Text="Settings" FontSize="30" VerticalAlignment="Center" HorizontalAlignment="Center" Style="{StaticResource Dim_Blue_TextBlock_Control}"/>
+
+
+
+        
         
 
-        <StackPanel Grid.Row="2" Grid.RowSpan="7" Grid.ColumnSpan="9">
+        <StackPanel Grid.Row="1" Margin="0,0,0,20" VerticalAlignment="Bottom" Grid.RowSpan="8" Grid.ColumnSpan="9">
+
+            <StackPanel>
+
+                <TextBlock FontFamily="Bahnschrift Light" Text="Server Ip address" FontSize="18" Grid.RowSpan="2" Grid.ColumnSpan="9" VerticalAlignment="Center" Style="{StaticResource Bright_Blue_TextBlock}" HorizontalAlignment="Center"/>
+
+
+                <TextBox x:Name="Ip_TextBox" HorizontalAlignment="Center" Margin="0,5,0,0" MinWidth="60" MaxWidth="150" Height="28" FontSize="20" VerticalAlignment="Center" Style="{StaticResource Grey_Ip_TextBox_Background_TextBox}" SizeChanged="Ip_TextBox_Size_Changed" LostFocus="Ip_TextBox_Lost_Focus"/>
+                
+            </StackPanel>
             
+
+
+            <StackPanel Margin="0,50,0,0">
+
+                <TextBlock FontFamily="Bahnschrift Light" Text="Server port number" FontSize="18" Grid.RowSpan="2" Grid.ColumnSpan="9" VerticalAlignment="Center" HorizontalAlignment="Center" Style="{StaticResource Bright_Blue_TextBlock}"/>
+
+
+                <TextBox x:Name="Server_Port_TextBox" Width="60" Height="28" FontSize="20" Margin="0,5,0,0" VerticalAlignment="Center" Style="{StaticResource Grey_Port_Number_TextBox_Background_TextBox}" LostFocus="Port_TextBox_Lost_Focus"/>
+
+            </StackPanel>
+
+
+
+            <StackPanel Margin="0,50,0,0" HorizontalAlignment="Center" Orientation="Horizontal">
+                
+                <TextBlock FontFamily="Bahnschrift Light" Text="Upload server certificate" FontSize="18" Grid.RowSpan="2" Grid.ColumnSpan="9" VerticalAlignment="Center" HorizontalAlignment="Center" Style="{StaticResource Bright_Blue_TextBlock}"/>
+
+
+                <Button Margin="10,0,0,0" HorizontalAlignment="Center" FontSize="25" FontFamily="Segoe MDL2 Assets" Content="&#xE118;" Click="Upload_Server_Certificate" Style="{StaticResource Dim_Blue_With_Blue_On_Hover_Margin_Button_Style}"/>
+
+            </StackPanel>
+
         </StackPanel>
+        
+
 
     </Grid>
 </Window>

@@ -17,7 +17,7 @@ namespace University_Records_System_Client_Application
         {
             public static Task<string> Get_EndPoint_Ip_Address()
             {
-                return Task.FromResult(endpoint_ip_sddress);
+                return Task.FromResult(endpoint_ip_address);
             }
 
             public static Task<int> Get_EndPoint_Port_Number()
