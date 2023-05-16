@@ -265,5 +265,25 @@ namespace University_Records_System_Client_Application
             });
         }
 
+        private void Open_Settings_Page(object sender, RoutedEventArgs e)
+        {
+            if (Application.Current != null)
+            {
+                if (Application.Current.Dispatcher != null)
+                {
+                    if (Application.Current.Dispatcher.HasShutdownStarted != true)
+                    {
+                        if (this != null)
+                        {
+                            if (Window_Closing != true)
+                            {
+                                Application_Settings application_settings = new Application_Settings();
+                                application_settings.Show();
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 }

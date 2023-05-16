@@ -34,19 +34,8 @@
         </Grid.ColumnDefinitions>
 
 
-        <!--<Button HorizontalAlignment="Center" VerticalAlignment="Center" Grid.ColumnSpan="2" FontFamily="Segoe MDL2 Assets" FontSize="20" Content="&#xE118;" Click="Load_Certificate_Authority" Style="{StaticResource Blue_On_Hover_Margin_Button_Style}">
-            
-        </Button>-->
         
-        
-        <Button HorizontalAlignment="Center" VerticalAlignment="Center" Grid.ColumnSpan="2" FontFamily="Segoe MDL2 Assets" FontSize="20" Content="&#xE118;" Click="Load_Certificate_Authority" Style="{StaticResource Blue_On_Hover_Margin_Button_Style}">
-            <TextBlock.Foreground>
-                <LinearGradientBrush StartPoint="0.5, 1" EndPoint="0, 1">
-                    <GradientStop Color="#FF4C4C4C" Offset="1"/>
-                    <GradientStop Color="#FF8E8E8E"/>
-                </LinearGradientBrush>
-            </TextBlock.Foreground>
-        </Button>
+       
 
         
         <TextBlock Grid.RowSpan="2" Grid.ColumnSpan="9" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Corbel Light" FontSize="45" Text="Log In">
