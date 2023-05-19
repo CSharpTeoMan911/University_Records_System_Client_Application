@@ -21,7 +21,11 @@ namespace University_Records_System_Client_Application
     /// </summary>
     public partial class Application_Settings : Window
     {
+        Dispatcher_Controller controller = new Dispatcher_Controller();
         private bool Window_Closing;
+
+
+
         public Application_Settings()
         {
             InitializeComponent();
@@ -200,9 +204,60 @@ namespace University_Records_System_Client_Application
             return true;
         }
 
-        private void Upload_Server_Certificate(object sender, RoutedEventArgs e)
+        private async void Upload_Server_Certificate(object sender, RoutedEventArgs e)
         {
+            if (Window_Closing == false)
+            {
+                if (Application.Current.Dispatcher != null)
+                {
+                    if (Application.Current.Dispatcher.HasShutdownStarted == false)
+                    {
+                        if (this != null)
+                        {
 
+                            // CREATE AN "OpenFileDialog" OBJECT. THIS OBJECT IS USED TO NAVIGATE THE WINDOWS OS FILE SYSTEM IN 
+                            // ORDER TO SELECT THE SET SERVER'S X509 SSL CERTIFICATES.
+                            System.Windows.Forms.OpenFileDialog certificate_selector = new System.Windows.Forms.OpenFileDialog();
+
+                            try
+                            {
+                                // CREATE A FILTER FOR THE "OpenFileDialog" OBJECT IN ORDER FOR IT TO DISPLAY ONLY
+                                // FILES THAT ARE IN THE ".pfx" FILE FORMAT.
+                                certificate_selector.Filter = "ssl certificate files (*.crt)|*.crt";
+
+
+
+                                // OPEN THE FILE DIALOG WINDOW.
+                                if (certificate_selector.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                                {
+
+
+
+                                    // FORMAT THE BINARY CONTENT OF THE SELECTED X509 CERTIFICATE IN X509 CERTIFICATE FORMAT AND LOAD THE CERTIFICATE
+                                    // IN THE DEVICE'S CERTIFICATE STORE TRUSTED CERTIFICATE AUTHORITIES 
+                                    bool certificate_load_result = await controller.Load_X509_Certificate_Into_Store_Controller(certificate_selector.FileName);
+
+                                    if (certificate_load_result == true)
+                                    {
+                                        this.Close();
+                                    }
+                                }
+                            }
+                            catch
+                            {
+
+                            }
+                            finally
+                            {
+                                if (certificate_selector != null)
+                                {
+                                    certificate_selector.Dispose();
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 }

@@ -22,7 +22,7 @@ namespace University_Records_System_Client_Application
                     break;
 
                 case Dispatcher_Controller.Option.Load_X509_Certificate_Into_Store:
-                    result = (first_setter != null && second_setter != null && first_setter.GetType() == typeof(byte[]) && second_setter.GetType() == typeof(string)) ? await Load_X509_Certificate_Into_Store(first_setter as byte[], second_setter as string) : result;
+                    result = (first_setter != null && first_setter.GetType() == typeof(string)) ? await Load_X509_Certificate_Into_Store(first_setter as string) : result;
                     break;
 
                 case Dispatcher_Controller.Option.Save_Log_In_Key:

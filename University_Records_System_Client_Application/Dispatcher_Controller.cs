@@ -27,10 +27,17 @@ namespace University_Records_System_Client_Application
         }
 
 
-        internal async Task<bool> Load_X509_Certificate_Into_Store_Controller(byte[] certificate_binary_data, string certificate_password)
+        internal async Task<bool> Load_X509_Certificate_Into_Store_Controller(string certificate_path)
         {
             bool result = false;
-            result = (bool)(await Dispatcher(Option.Load_X509_Certificate_Into_Store, certificate_binary_data, certificate_password, null));
+            try
+            {
+                result = (bool)(await Dispatcher(Option.Load_X509_Certificate_Into_Store, certificate_path, null, null));
+            }
+            catch(Exception E)
+            {
+                System.Diagnostics.Debug.WriteLine(E.Message);
+            }
             return result;
         }
 

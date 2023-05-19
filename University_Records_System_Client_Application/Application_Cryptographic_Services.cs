@@ -47,14 +47,12 @@ namespace University_Records_System_Client_Application
         // INTO THE DEVICE'S CERTIFICATE STORE TO COMMUNICATE WITH THE SERVER OVER THE
         // TLS 1.1 SECURE SOCKET LAYER PROTOCOL.
 
-        protected static Task<bool> Load_X509_Certificate_Into_Store(byte[] certificate_binary_data, string certificate_password)
+        protected static Task<bool> Load_X509_Certificate_Into_Store(string certificate_path)
         {
-            System.Security.Cryptography.X509Certificates.X509Certificate2 server_certificate = new System.Security.Cryptography.X509Certificates.X509Certificate2();
+            System.Security.Cryptography.X509Certificates.X509Certificate2 server_certificate = new System.Security.Cryptography.X509Certificates.X509Certificate2(certificate_path);
 
             try
             {
-                server_certificate.Import(certificate_binary_data, certificate_password, System.Security.Cryptography.X509Certificates.X509KeyStorageFlags.DefaultKeySet);
-
                 System.Security.Cryptography.X509Certificates.X509Store certificate_store = new System.Security.Cryptography.X509Certificates.X509Store(System.Security.Cryptography.X509Certificates.StoreName.Root, System.Security.Cryptography.X509Certificates.StoreLocation.LocalMachine);
 
                 try

@@ -13,29 +13,12 @@ namespace University_Records_System_Client_Application
 
 
 
-        private sealed class Client_Variables_Mitigator:Client_Variables
-        {
-            public static Task<string> Get_EndPoint_Ip_Address()
-            {
-                return Task.FromResult(endpoint_ip_address);
-            }
-
-            public static Task<int> Get_EndPoint_Port_Number()
-            {
-                return Task.FromResult(endpoint_port);
-            }
-        }
-
-
-
-
-
-
         private static bool ValidateServerCertificate( object sender, System.Security.Cryptography.X509Certificates.X509Certificate certificate, System.Security.Cryptography.X509Certificates.X509Chain chain, System.Net.Security.SslPolicyErrors sslPolicyErrors)
         {
             // IF THE CERTIFICATE MATCHES ANY TRUSTED ROOT CERTIFICATE AUTHORITY
             // WITHIN THE DEVICE'S CERTIFICATE STORE, VALIDATE THE CERTIFICATE
-            if (sslPolicyErrors == System.Net.Security.SslPolicyErrors.None)
+
+            if (sslPolicyErrors == System.Net.Security.SslPolicyErrors.RemoteCertificateNameMismatch || sslPolicyErrors == System.Net.Security.SslPolicyErrors.None)
             {
                 return true;
             }
@@ -69,7 +52,7 @@ namespace University_Records_System_Client_Application
 
             try
             {
-                client.Connect(await Client_Variables_Mitigator.Get_EndPoint_Ip_Address(), await Client_Variables_Mitigator.Get_EndPoint_Port_Number());
+                client.Connect(endpoint_ip_address, endpoint_port);
 
 
 
@@ -97,7 +80,7 @@ namespace University_Records_System_Client_Application
 
                         if (Encoding.UTF8.GetString(serialised_payload, 0, serialised_payload.Length) != "PAYLOAD SERIALISATION FAILED")
                         {
-                            secure_client_stream.AuthenticateAsClient("University-Student-Records-System", null, System.Security.Authentication.SslProtocols.Tls11, false);
+                            secure_client_stream.AuthenticateAsClient("Student_Records_System", null, System.Security.Authentication.SslProtocols.Tls12, false);
 
 
                             int bytes_per_second = await Rount_Trip_Time_Calculator(secure_client_stream);
@@ -218,8 +201,9 @@ namespace University_Records_System_Client_Application
                             return_value = Encoding.UTF8.GetBytes(deserialised_server_payload.response);
                         }
                     }
-                    catch
+                    catch (Exception E)
                     {
+                        System.Diagnostics.Debug.WriteLine(E.Message);
                         if (secure_client_stream != null)
                         {
                             secure_client_stream.Close();
@@ -237,9 +221,10 @@ namespace University_Records_System_Client_Application
 
 
                 }
-                catch
+                catch (Exception E)
                 {
-                    if(client_stream != null)
+                    System.Diagnostics.Debug.WriteLine(E.Message);
+                    if (client_stream != null)
                     {
                         client_stream.Close();
                     }
@@ -256,9 +241,10 @@ namespace University_Records_System_Client_Application
 
                 
             }
-            catch
+            catch (Exception E)
             {
-                if(client != null)
+                System.Diagnostics.Debug.WriteLine(E.Message);
+                if (client != null)
                 {
                     client.Close();
                 }

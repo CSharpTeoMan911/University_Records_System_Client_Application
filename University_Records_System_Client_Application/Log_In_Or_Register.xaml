@@ -72,7 +72,7 @@
 
         <Frame x:Name="Navigation_Frame" Grid.Row="1" Grid.RowSpan="9" Grid.ColumnSpan="9" NavigationUIVisibility="Hidden"/>
 
-        <Button Margin="10,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Row="1" Grid.ColumnSpan="2" FontFamily="Segoe MDL2 Assets" FontSize="25" Content="&#xE115;" Click="Open_Settings_Page" Style="{StaticResource Blue_On_Hover_Margin_Button_Style}">
+        <Button Margin="10,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Row="1" Grid.ColumnSpan="2" FontFamily="Segoe MDL2 Assets" FontSize="25" Content="&#xE115;" Style="{StaticResource Blue_On_Hover_Margin_Button_Style}" Click="Open_Settings_Page">
             <TextBlock.Foreground>
                 <LinearGradientBrush StartPoint="0.5, 1" EndPoint="0, 1">
                     <GradientStop Color="#FF4C4C4C" Offset="1"/>

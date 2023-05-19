@@ -211,11 +211,14 @@ namespace University_Records_System_Client_Application
 
                     Settings_File settings = Newtonsoft.Json.JsonConvert.DeserializeObject<Settings_File>(serialized_file_string);
 
-                    email = settings.email;
-                    endpoint_ip_address = settings.endpoint_ip_address;
-                    endpoint_port = settings.endpoint_port;
-                    keep_user_logged_in = settings.keep_user_logged_in;
-                    log_in_session_key = settings.log_in_session_key;
+                    if(settings != null)
+                    {
+                        email = settings?.email;
+                        endpoint_ip_address = settings?.endpoint_ip_address;
+                        endpoint_port = settings.endpoint_port;
+                        keep_user_logged_in = settings.keep_user_logged_in;
+                        log_in_session_key = settings?.log_in_session_key;
+                    }
                 }
                 catch
                 {
