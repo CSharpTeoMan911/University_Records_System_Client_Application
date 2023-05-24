@@ -28,7 +28,7 @@ namespace University_Records_System_Client_Application
         private static Students students = new Students();
         private static Courses courses = new Courses();
 
-        private static Dispatcher_Controller controller = new Dispatcher_Controller();
+        private static Cryptographic_Serives_Dispatcher_Controller cryptographic_controller = new Cryptographic_Serives_Dispatcher_Controller();
 
 
         // UI RELATED OBJECT VALUES
@@ -364,7 +364,7 @@ namespace University_Records_System_Client_Application
 
                                 if(Encoding.UTF8.GetString(log_out_result) == "Logged out")
                                 {
-                                    await controller.Delete_Log_In_Sesion_Key_Controller();
+                                    await cryptographic_controller.Delete_Log_In_Sesion_Key_Controller();
 
                                     Log_In_Or_Register log_In_Or_Register = new Log_In_Or_Register();
                                     log_In_Or_Register.Show();

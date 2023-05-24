@@ -31,8 +31,7 @@ namespace University_Records_System_Client_Application
         private static Log_In_Or_Register log_in_or_register;
 
 
-        private static Dispatcher_Controller controller = new Dispatcher_Controller();
-
+        Cryptographic_Serives_Dispatcher_Controller cryptographic_controller = new Cryptographic_Serives_Dispatcher_Controller();
 
 
 
@@ -140,7 +139,7 @@ namespace University_Records_System_Client_Application
 
             // IF A CACHE FILE EXISTS IN THE APPLICATION'S DIRECTORY NAVIGATE TO THE APPLICATION'S MAIN WINDOW
             // OTHERWISE NAVIGATE TO THE LOG IN PAGE
-            if (await controller.Load_Log_In_Session_Key_Controller() == true)
+            if (await cryptographic_controller.Load_Log_In_Session_Key_Controller() == true)
             {
                 Navigate("Main Window");
             }

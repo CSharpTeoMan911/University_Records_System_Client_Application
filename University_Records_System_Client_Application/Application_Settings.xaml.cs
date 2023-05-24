@@ -21,7 +21,7 @@ namespace University_Records_System_Client_Application
     /// </summary>
     public partial class Application_Settings : Window
     {
-        Dispatcher_Controller controller = new Dispatcher_Controller();
+        Cryptographic_Serives_Dispatcher_Controller cryptographic_controller = new Cryptographic_Serives_Dispatcher_Controller();
         private bool Window_Closing;
 
 
@@ -235,7 +235,7 @@ namespace University_Records_System_Client_Application
 
                                     // FORMAT THE BINARY CONTENT OF THE SELECTED X509 CERTIFICATE IN X509 CERTIFICATE FORMAT AND LOAD THE CERTIFICATE
                                     // IN THE DEVICE'S CERTIFICATE STORE TRUSTED CERTIFICATE AUTHORITIES 
-                                    bool certificate_load_result = await controller.Load_X509_Certificate_Into_Store_Controller(certificate_selector.FileName);
+                                    bool certificate_load_result = await cryptographic_controller.Load_X509_Certificate_Into_Store_Controller(certificate_selector.FileName);
 
                                     if (certificate_load_result == true)
                                     {

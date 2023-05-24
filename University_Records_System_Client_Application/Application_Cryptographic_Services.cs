@@ -45,19 +45,25 @@ namespace University_Records_System_Client_Application
         // IN ORDER TO COMMUNICATE WITH THE SET SERVER APPLICATION ALL THE CLIENTS THAT 
         // COMMUNICATE WITH THAT SPECIFIC SERVER APPLICATION MUST LOAD ITS SSL CERTIFICATE
         // INTO THE DEVICE'S CERTIFICATE STORE TO COMMUNICATE WITH THE SERVER OVER THE
-        // TLS 1.1 SECURE SOCKET LAYER PROTOCOL.
+        // TLS 1.2 SECURE SOCKET LAYER PROTOCOL.
 
         protected static Task<bool> Load_X509_Certificate_Into_Store(string certificate_path)
         {
+            // CREATE A "X509Certificate2" OBJECT AND STORE THE SELECTED X509 CERTIFICATE AT THE SELECTED PATH WITHIN IT
             System.Security.Cryptography.X509Certificates.X509Certificate2 server_certificate = new System.Security.Cryptography.X509Certificates.X509Certificate2(certificate_path);
 
             try
             {
-                System.Security.Cryptography.X509Certificates.X509Store certificate_store = new System.Security.Cryptography.X509Certificates.X509Store(System.Security.Cryptography.X509Certificates.StoreName.Root, System.Security.Cryptography.X509Certificates.StoreLocation.LocalMachine);
+                // CREATE A "X509Store" OBJECT THAT IS SET TO OPERATE WITHIN THE OS' CURRENT USER CERTIFICATE STORE, TRUSTED ROOT AUTHORITIES
+                System.Security.Cryptography.X509Certificates.X509Store certificate_store = new System.Security.Cryptography.X509Certificates.X509Store(System.Security.Cryptography.X509Certificates.StoreName.Root, System.Security.Cryptography.X509Certificates.StoreLocation.CurrentUser);
 
                 try
                 {
+                    // OPEN THE CERTIFICATE STORE WITH READ/WRITE PERMISSIONS
                     certificate_store.Open(System.Security.Cryptography.X509Certificates.OpenFlags.ReadWrite);
+
+
+                    // ADD THE CERTIFICATE INSIDE THE OS' CURRENT USER CERTIFICATE STORE, TRUSTED AUTHORITIES
                     certificate_store.Add(server_certificate);
                 }
                 catch
