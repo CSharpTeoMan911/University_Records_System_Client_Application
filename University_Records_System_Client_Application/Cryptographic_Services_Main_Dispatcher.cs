@@ -19,11 +19,12 @@ namespace University_Records_System_Client_Application
                     break;
 
                 case Cryptographic_Services_Dispatcher_Controller.Option.Load_X509_Certificate_Into_Store:
-                    result = (first_setter != null && first_setter.GetType() == typeof(string)) ? await Load_X509_Certificate_Into_Store(first_setter as string) : result;
+                    result = (first_setter != null && first_setter.GetType() == typeof(string)) ? await Load_X509_Certificate_Into_Store(first_setter as string) : false;
                     break;
 
                 case Cryptographic_Services_Dispatcher_Controller.Option.Save_Log_In_Key:
-                    result = (first_setter != null && first_setter.GetType() == typeof(string) && second_setter != null && second_setter.GetType() == typeof(string) && third_setter != null && third_setter.GetType() == typeof(bool)) ? await Save_Log_In_Key(first_setter as string, second_setter as string, (bool)third_setter) : result;
+                    result = (first_setter != null && first_setter.GetType() == typeof(string) && second_setter != null && second_setter.GetType() == typeof(string) && third_setter 
+                              != null && third_setter.GetType() == typeof(bool)) ? await Save_Log_In_Key(first_setter as string, second_setter as string, (bool)third_setter) : false;
                     break;
 
                 case Cryptographic_Services_Dispatcher_Controller.Option.Delete_Log_In_Sesion_Key:

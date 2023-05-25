@@ -41,12 +41,10 @@ namespace University_Records_System_Client_Application
 
         // LOAD X509 SERVER CERTIFICATE INTO THE DEVICE'S CERTIFICATE STORE
         //
-        // THIS IS DONE BECAUSE THE SERVER APPLICATION IS CREATING SELF SIGNED CERTIFICATES.
-        // IN ORDER TO COMMUNICATE WITH THE SET SERVER APPLICATION ALL THE CLIENTS THAT 
-        // COMMUNICATE WITH THAT SPECIFIC SERVER APPLICATION MUST LOAD ITS SSL CERTIFICATE
-        // INTO THE DEVICE'S CERTIFICATE STORE TO COMMUNICATE WITH THE SERVER OVER THE
-        // TLS 1.2 SECURE SOCKET LAYER PROTOCOL.
-
+        // THIS IS DONE BECAUSE THE SERVER APPLICATION IS CREATING SELF SIGNED CERTIFICATES. IN ORDER TO COMMUNICATE
+        // WITH THE SET SERVER APPLICATION ALL THE CLIENTS THAT COMMUNICATE WITH THAT SPECIFIC SERVER APPLICATION
+        // MUST LOAD ITS SSL CERTIFICATE INTO THE DEVICE'S CERTIFICATE STORE TO COMMUNICATE WITH THE SERVER OVER 
+        // THE TLS 1.2 SECURE SOCKET LAYER PROTOCOL.
         protected static Task<bool> Load_X509_Certificate_Into_Store(string certificate_path)
         {
             // CREATE A "X509Certificate2" OBJECT AND STORE THE SELECTED X509 CERTIFICATE AT THE SELECTED PATH WITHIN IT
@@ -69,7 +67,6 @@ namespace University_Records_System_Client_Application
                 }
                 catch
                 {
-                    
                     if(certificate_store != null)
                     {
                         certificate_store.Close();
@@ -86,7 +83,7 @@ namespace University_Records_System_Client_Application
             }
             catch
             {
-               
+
             }
             finally
             {

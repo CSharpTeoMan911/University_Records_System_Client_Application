@@ -13,12 +13,13 @@ namespace University_Records_System_Client_Application
 
 
 
-        private static bool ValidateServerCertificate( object sender, System.Security.Cryptography.X509Certificates.X509Certificate certificate, System.Security.Cryptography.X509Certificates.X509Chain chain, System.Net.Security.SslPolicyErrors sslPolicyErrors)
+        private static bool ValidateServerCertificate( object sender, System.Security.Cryptography.X509Certificates.X509Certificate certificate, 
+                                                       System.Security.Cryptography.X509Certificates.X509Chain chain, System.Net.Security.SslPolicyErrors sslPolicyErrors)
         {
             // IF THE CERTIFICATE MATCHES ANY TRUSTED ROOT CERTIFICATE AUTHORITY
             // WITHIN THE DEVICE'S CERTIFICATE STORE, VALIDATE THE CERTIFICATE
 
-            if (sslPolicyErrors == System.Net.Security.SslPolicyErrors.RemoteCertificateNameMismatch || sslPolicyErrors == System.Net.Security.SslPolicyErrors.None)
+            if (sslPolicyErrors == System.Net.Security.SslPolicyErrors.None)
             {
                 return true;
             }
