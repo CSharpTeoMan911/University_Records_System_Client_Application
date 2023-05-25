@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace University_Records_System_Client_Application
 {
-    internal class Cryptographic_Serives_Dispatcher_Controller:Cryptographic_Services_Main_Dispatcher
+    internal class Cryptographic_Services_Dispatcher_Controller:Cryptographic_Services_Main_Dispatcher
     {
 
         public enum Option

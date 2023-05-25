@@ -55,7 +55,8 @@ namespace University_Records_System_Client_Application
             try
             {
                 // CREATE A "X509Store" OBJECT THAT IS SET TO OPERATE WITHIN THE OS' CURRENT USER CERTIFICATE STORE, TRUSTED ROOT AUTHORITIES
-                System.Security.Cryptography.X509Certificates.X509Store certificate_store = new System.Security.Cryptography.X509Certificates.X509Store(System.Security.Cryptography.X509Certificates.StoreName.Root, System.Security.Cryptography.X509Certificates.StoreLocation.CurrentUser);
+                System.Security.Cryptography.X509Certificates.X509Store certificate_store = new System.Security.Cryptography.X509Certificates.X509Store(System.Security.Cryptography.X509Certificates.StoreName.Root, 
+                                                                                                                                                        System.Security.Cryptography.X509Certificates.StoreLocation.CurrentUser);
 
                 try
                 {

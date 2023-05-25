@@ -23,7 +23,7 @@ namespace University_Records_System_Client_Application
         private string Selected_Function;
         private string email;
 
-        Cryptographic_Serives_Dispatcher_Controller cryptographic_controller = new Cryptographic_Serives_Dispatcher_Controller();
+        Cryptographic_Services_Dispatcher_Controller cryptographic_controller = new Cryptographic_Services_Dispatcher_Controller();
 
         public Password_Window(string selected_function, string email_address)
         {

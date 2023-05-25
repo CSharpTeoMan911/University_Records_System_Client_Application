@@ -31,7 +31,7 @@ namespace University_Records_System_Client_Application
         private static Log_In_Or_Register log_in_or_register;
 
 
-        Cryptographic_Serives_Dispatcher_Controller cryptographic_controller = new Cryptographic_Serives_Dispatcher_Controller();
+        Cryptographic_Services_Dispatcher_Controller cryptographic_controller = new Cryptographic_Services_Dispatcher_Controller();
 
 
 

@@ -28,7 +28,7 @@ namespace University_Records_System_Client_Application
         private static Students students = new Students();
         private static Courses courses = new Courses();
 
-        private static Cryptographic_Serives_Dispatcher_Controller cryptographic_controller = new Cryptographic_Serives_Dispatcher_Controller();
+        private static Cryptographic_Services_Dispatcher_Controller cryptographic_controller = new Cryptographic_Services_Dispatcher_Controller();
 
 
         // UI RELATED OBJECT VALUES

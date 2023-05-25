@@ -21,7 +21,7 @@ namespace University_Records_System_Client_Application
     /// </summary>
     public partial class Application_Settings : Window
     {
-        Cryptographic_Serives_Dispatcher_Controller cryptographic_controller = new Cryptographic_Serives_Dispatcher_Controller();
+        Cryptographic_Services_Dispatcher_Controller cryptographic_controller = new Cryptographic_Services_Dispatcher_Controller();
         private bool Window_Closing;
 
 
@@ -259,5 +259,7 @@ namespace University_Records_System_Client_Application
                 }
             }
         }
+
+
     }
 }

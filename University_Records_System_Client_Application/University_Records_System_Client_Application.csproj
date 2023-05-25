@@ -71,7 +71,7 @@
     <Compile Include="Courses.xaml.cs">
       <DependentUpon>Courses.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Cryptographic_Serives_Dispatcher_Controller.cs" />
+    <Compile Include="Cryptographic_Services_Dispatcher_Controller.cs" />
     <Compile Include="Cryptographic_Services_Main_Dispatcher.cs" />
     <Compile Include="Dispatcher_Controller.cs" />
     <Compile Include="Functions_Dispatcher.cs" />
