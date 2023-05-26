@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static University_Records_System_Client_Application.Client_Variables;
 
 namespace University_Records_System_Client_Application
 {
@@ -10,6 +11,7 @@ namespace University_Records_System_Client_Application
     {
       
         private static System.Diagnostics.Stopwatch speed_checkup = new System.Diagnostics.Stopwatch();
+        private static readonly byte[] client_response = Encoding.UTF8.GetBytes("OK");
 
 
 
@@ -33,11 +35,21 @@ namespace University_Records_System_Client_Application
 
         internal static async Task<byte[]> Initiate_Server_Connection<Password__Or__Binary_Content>(string email__or__log_in_session_key, Password__Or__Binary_Content password__or__binary_content, Functions function)
         {
+
+            string Function = String.Empty;
+            Function_string.TryGetValue(function, out Function);
+
+            byte[] serialised_payload = await Serialise_Client_Payload<Password__Or__Binary_Content>(email__or__log_in_session_key, password__or__binary_content, Function);
+            byte[] serialised_payload_length = BitConverter.GetBytes(serialised_payload.Length);
+
+
+
+
             byte[] return_value = Encoding.UTF8.GetBytes("Connection error");
 
-
-            byte[] client_response = Encoding.UTF8.GetBytes("OK");
             byte[] server_response = new byte[client_response.Length];
+
+
 
 
             System.Net.Sockets.Socket client = new System.Net.Sockets.Socket(System.Net.Sockets.AddressFamily.InterNetwork, System.Net.Sockets.SocketType.Stream, System.Net.Sockets.ProtocolType.Tcp);
@@ -55,16 +67,6 @@ namespace University_Records_System_Client_Application
             try
             {
                 client.Connect(endpoint_ip_address, endpoint_port);
-
-
-                string Function = String.Empty;
-                Function_string.TryGetValue(function, out Function);
-
-
-                byte[] serialised_payload = await Serialise_Client_Payload<Password__Or__Binary_Content>(email__or__log_in_session_key, password__or__binary_content, Function);
-                byte[] serialised_payload_length = BitConverter.GetBytes(serialised_payload.Length);
-
-
 
 
                 System.Net.Sockets.NetworkStream client_stream = new System.Net.Sockets.NetworkStream(client);
