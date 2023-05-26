@@ -358,7 +358,7 @@ namespace University_Records_System_Client_Application
                             {
                                 string log_in_session_key = (await Settings.Get_Value(Settings.Option.log_in_session_key) as string);
 
-                                byte[] log_out_result = await Server_Connections.Initiate_Server_Connection<string>(log_in_session_key, String.Empty, "Account log out", false);
+                                byte[] log_out_result = await Server_Connections.Initiate_Server_Connection<string>(log_in_session_key, String.Empty, Client_Variables.Functions.Account_log_out);
 
                                 Message_Displayer.Display_Message(log_out_result);
 

@@ -38,7 +38,7 @@ namespace University_Records_System_Client_Application
                         {
                             if(Password_PasswordBox.Password == Password_PasswordBox_Repeated.Password)
                             {
-                                byte[] registration_result = await Server_Connections.Initiate_Server_Connection<string>(Email_TextBox.Text, Password_PasswordBox.Password, "Register", false);
+                                byte[] registration_result = await Server_Connections.Initiate_Server_Connection<string>(Email_TextBox.Text, Password_PasswordBox.Password, Client_Variables.Functions.Register);
                                 Message_Displayer.Display_Message(registration_result);
 
                                 if(Encoding.UTF8.GetString(registration_result) == "Registration successful")

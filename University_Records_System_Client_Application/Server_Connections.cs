@@ -13,6 +13,8 @@ namespace University_Records_System_Client_Application
 
 
 
+
+
         private static bool ValidateServerCertificate( object sender, System.Security.Cryptography.X509Certificates.X509Certificate certificate, 
                                                        System.Security.Cryptography.X509Certificates.X509Chain chain, System.Net.Security.SslPolicyErrors sslPolicyErrors)
         {
@@ -29,7 +31,7 @@ namespace University_Records_System_Client_Application
 
 
 
-        internal static async Task<byte[]> Initiate_Server_Connection<Password__Or__Binary_Content>(string email__or__log_in_session_key, Password__Or__Binary_Content password__or__binary_content, string function, bool binary_file)
+        internal static async Task<byte[]> Initiate_Server_Connection<Password__Or__Binary_Content>(string email__or__log_in_session_key, Password__Or__Binary_Content password__or__binary_content, Functions function)
         {
             byte[] return_value = Encoding.UTF8.GetBytes("Connection error");
             byte[] client_response = Encoding.UTF8.GetBytes("OK");
@@ -56,9 +58,11 @@ namespace University_Records_System_Client_Application
                 client.Connect(endpoint_ip_address, endpoint_port);
 
 
+                string Function = String.Empty;
+                Function_string.TryGetValue(function, out Function);
 
 
-                byte[] serialised_payload = await Serialise_Client_Payload<Password__Or__Binary_Content>(email__or__log_in_session_key, password__or__binary_content, function);
+                byte[] serialised_payload = await Serialise_Client_Payload<Password__Or__Binary_Content>(email__or__log_in_session_key, password__or__binary_content, Function);
                 byte[] serialised_payload_length = BitConverter.GetBytes(serialised_payload.Length);
 
 
@@ -87,31 +91,6 @@ namespace University_Records_System_Client_Application
                             int bytes_per_second = await Rount_Trip_Time_Calculator(secure_client_stream);
 
 
-                            switch(binary_file)
-                            {
-                                case true:
-                                    is_binary_file = BitConverter.GetBytes(1);
-                                    break;
-
-                                case false:
-                                    is_binary_file = BitConverter.GetBytes(0);
-                                    break;
-                            }
-
-
-
-                            await Calculate_Connection_Timeout(secure_client_stream, is_binary_file.Length, bytes_per_second);
-                            await secure_client_stream.WriteAsync(is_binary_file, 0, is_binary_file.Length);
-
-
-
-
-
-                            await Calculate_Connection_Timeout(secure_client_stream, server_response.Length, bytes_per_second);
-                            await secure_client_stream.ReadAsync(server_response, 0, server_response.Length);
-
-
-
 
 
                             await Calculate_Connection_Timeout(secure_client_stream, serialised_payload_length.Length, bytes_per_second);
@@ -130,23 +109,7 @@ namespace University_Records_System_Client_Application
 
 
                             await Calculate_Connection_Timeout(secure_client_stream, serialised_payload.Length, bytes_per_second);
-
-                            switch (binary_file)
-                            {
-                                case true:
-                                    await Task.Run(() =>
-                                    {
-                                        for (int byte_index = 0; byte_index < serialised_payload.Length; byte_index++)
-                                        {
-                                            secure_client_stream.WriteByte(serialised_payload[byte_index]);
-                                        }
-                                    });
-                                    break;
-
-                                case false:
-                                    await secure_client_stream.WriteAsync(serialised_payload, 0, serialised_payload.Length);
-                                    break;
-                            }
+                            await secure_client_stream.WriteAsync(serialised_payload, 0, serialised_payload.Length);
 
 
 
@@ -173,26 +136,12 @@ namespace University_Records_System_Client_Application
                             byte[] server_payload = new byte[BitConverter.ToInt32(server_payload_length, 0)];
                             await Calculate_Connection_Timeout(secure_client_stream, server_payload.Length, bytes_per_second);
 
+                            int total_bytes_read = 0;
 
-
-
-                            switch (binary_file)
+                            while (total_bytes_read < server_payload.Length)
                             {
-                                case true:
-                                    await Task.Run(() =>
-                                    {
-                                        for (int byte_index = 0; byte_index < serialised_payload.Length; byte_index++)
-                                        {
-                                            server_payload[byte_index] = (byte)secure_client_stream.ReadByte();
-                                        }
-                                    });
-                                    break;
-
-                                case false:
-                                    await secure_client_stream.ReadAsync(server_payload, 0, server_payload.Length);
-                                    break;
+                                total_bytes_read += await secure_client_stream.ReadAsync(server_payload, total_bytes_read, server_payload.Length - total_bytes_read);
                             }
-
 
 
 

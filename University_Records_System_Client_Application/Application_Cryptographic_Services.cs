@@ -208,7 +208,7 @@ namespace University_Records_System_Client_Application
                             email = log_In_Key_Cache.email;
                             log_in_session_key = log_In_Key_Cache.log_in_session_key;
 
-                            byte[] log_in_session_key_validation_result = await Server_Connections.Initiate_Server_Connection<string>(log_in_session_key, String.Empty, "Log in session key validation", false);
+                            byte[] log_in_session_key_validation_result = await Server_Connections.Initiate_Server_Connection<string>(log_in_session_key, String.Empty, Functions.Log_in_session_key_validation);
 
                             Message_Displayer.Display_Message(log_in_session_key_validation_result);
 

@@ -74,7 +74,7 @@ namespace University_Records_System_Client_Application
                             // ON ANOTHER THREAD
                             System.Threading.Thread connection_thread = new System.Threading.Thread(async () =>
                             {
-                                byte[] log_in_result = await Server_Connections.Initiate_Server_Connection<string>(email, password, "Log In", false);
+                                byte[] log_in_result = await Server_Connections.Initiate_Server_Connection<string>(email, password, Client_Variables.Functions.Log_In);
 
 
 

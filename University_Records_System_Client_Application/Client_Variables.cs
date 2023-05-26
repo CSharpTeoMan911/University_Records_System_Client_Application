@@ -1,8 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace University_Records_System_Client_Application
 {
@@ -18,5 +18,36 @@ namespace University_Records_System_Client_Application
 
         protected static string endpoint_ip_address = "127.0.0.1";
         protected static int endpoint_port = 1024;
+
+
+        public enum Functions
+        {
+            Log_In,
+            Register,
+            Account_validation,
+            Account_log_in,
+            Account_log_out,
+            Log_in_session_key_validation
+        }
+
+        protected static System.Collections.Generic.Dictionary<Functions, string> Function_string = new System.Collections.Generic.Dictionary<Functions, string>()
+        {
+            {Functions.Log_In, "Log In"},
+            {Functions.Register, "Register"},
+            {Functions.Account_validation, "Account validation"},
+            {Functions.Account_log_in, "Account log in"},
+            {Functions.Account_log_out, "Account log out"},
+            {Functions.Log_in_session_key_validation, "Log in session key validation"}
+        };
+
+        protected static System.Collections.Generic.Dictionary<Functions, bool> Is_binary_file_operation = new System.Collections.Generic.Dictionary<Functions, bool>()
+        {
+            {Functions.Log_In, false},
+            {Functions.Register, false},
+            {Functions.Account_validation, false},
+            {Functions.Account_log_in, false},
+            {Functions.Account_log_out, false},
+            {Functions.Log_in_session_key_validation, false}
+        };
     }
 }

@@ -75,7 +75,7 @@ namespace University_Records_System_Client_Application
                                 case "Account validation":
                                     // INITIATE THE ACCOUNT VALIDATION PROCEDURE BY TRANSMITTING THE USER SELECTED ACCOUNT VALIDATION CODE
                                     // IN BYTE FORMAT TO THE SERVER AND STORING THE RESULT IN A BUFFER.
-                                    byte[] authentification_validation_result = await Server_Connections.Initiate_Server_Connection<string>(email, Password_PasswordBox.Password, "Account validation", false);
+                                    byte[] authentification_validation_result = await Server_Connections.Initiate_Server_Connection<string>(email, Password_PasswordBox.Password, Client_Variables.Functions.Account_validation);
 
 
                                     // DISPLAY THE RESULT OF THE ACCOUNT VALIDATION PROCEDURE EXECUTED BY THE SERVER
@@ -99,7 +99,7 @@ namespace University_Records_System_Client_Application
                                 case "Log in code":
                                     // INITIATE THE LOG IN PROCEDURE BY TRANSMITTING THE USER SELECTED LOG IN CODE 
                                     // IN BYTE FORMAT TO THE SERVER AND STORING THE RESULT IN A BUFFER.
-                                    byte[] log_in_code_validation_result = await Server_Connections.Initiate_Server_Connection<string>(email, Password_PasswordBox.Password, "Account log in", false);
+                                    byte[] log_in_code_validation_result = await Server_Connections.Initiate_Server_Connection<string>(email, Password_PasswordBox.Password, Client_Variables.Functions.Account_log_in);
 
 
                                     // DISPLAY THE RESULT OF THE LOG IN PROCEDURE EXECUTED BY THE SERVER
