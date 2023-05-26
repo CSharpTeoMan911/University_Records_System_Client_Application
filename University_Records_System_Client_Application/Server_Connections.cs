@@ -34,10 +34,9 @@ namespace University_Records_System_Client_Application
         internal static async Task<byte[]> Initiate_Server_Connection<Password__Or__Binary_Content>(string email__or__log_in_session_key, Password__Or__Binary_Content password__or__binary_content, Functions function)
         {
             byte[] return_value = Encoding.UTF8.GetBytes("Connection error");
+
+
             byte[] client_response = Encoding.UTF8.GetBytes("OK");
-
-            byte[] is_binary_file = new byte[1024];
-
             byte[] server_response = new byte[client_response.Length];
 
 

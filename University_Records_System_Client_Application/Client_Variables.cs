@@ -39,15 +39,5 @@ namespace University_Records_System_Client_Application
             {Functions.Account_log_out, "Account log out"},
             {Functions.Log_in_session_key_validation, "Log in session key validation"}
         };
-
-        protected static System.Collections.Generic.Dictionary<Functions, bool> Is_binary_file_operation = new System.Collections.Generic.Dictionary<Functions, bool>()
-        {
-            {Functions.Log_In, false},
-            {Functions.Register, false},
-            {Functions.Account_validation, false},
-            {Functions.Account_log_in, false},
-            {Functions.Account_log_out, false},
-            {Functions.Log_in_session_key_validation, false}
-        };
     }
 }
