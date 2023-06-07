@@ -42,12 +42,20 @@
             </TextBlock.Foreground>
         </TextBlock>
 
-        <DataGrid Grid.Row="2" Grid.RowSpan="7" Grid.ColumnSpan="9" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+        <DataGrid Grid.Row="2" Grid.RowSpan="5" Grid.ColumnSpan="9" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
             <DataGrid.Columns>
                 <DataGridTextColumn Width="*" Header="Name"/>
                 <DataGridTextColumn Width="*" Header="Date of birth"/>
                 <DataGridTextColumn Width="*" Header="Course"/>
                 <DataGridTextColumn Width="*" Header="Student ID"/>
+                
+                <DataGridTemplateColumn Width="*" Header="Grades">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Click="Edit_Grades" Content="Edit"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
 

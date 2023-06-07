@@ -16,27 +16,13 @@ using System.Windows.Shapes;
 namespace University_Records_System_Client_Application
 {
     /// <summary>
-    /// Interaction logic for Students.xaml
+    /// Interaction logic for Grades_Page.xaml
     /// </summary>
-    public partial class Students : Page
+    public partial class Grades_Page : Page
     {
-        public Students()
+        public Grades_Page()
         {
             InitializeComponent();
-        }
-
-
-
-
-
-        private void Page_Loaded(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void Edit_Grades(object sender, RoutedEventArgs e)
-        {
-
         }
     }
 }
