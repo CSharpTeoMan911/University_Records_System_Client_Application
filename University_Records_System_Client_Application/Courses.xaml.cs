@@ -39,5 +39,10 @@ namespace University_Records_System_Client_Application
         {
 
         }
+
+        private void Edit_Modules(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

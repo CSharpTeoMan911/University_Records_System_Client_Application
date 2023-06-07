@@ -70,7 +70,7 @@ namespace University_Records_System_Client_Application
                             string password = Password_PasswordBox.Password;
 
 
-                            // INITIATE A LOG IN OR ACCOUNT VALIDATION PROCEDURE BY COMMUNICATING WITH THE SERVER
+                            // INITIATE A` LOG IN OR ACCOUNT VALIDATION PROCEDURE BY COMMUNICATING WITH THE SERVER
                             // ON ANOTHER THREAD
                             System.Threading.Thread connection_thread = new System.Threading.Thread(async () =>
                             {

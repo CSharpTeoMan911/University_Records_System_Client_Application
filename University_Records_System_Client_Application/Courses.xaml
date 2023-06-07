@@ -42,5 +42,19 @@
             </TextBlock.Foreground>
         </TextBlock>
 
+        <DataGrid Grid.Row="2" Grid.RowSpan="7" Grid.ColumnSpan="9" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+            <DataGrid.Columns>
+                <DataGridTextColumn Width="*" Header="Course ID"/>
+                <DataGridTextColumn Width="*" Header="Course Year"/>
+                <DataGridTemplateColumn Width="*" Header="Modules">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Click="Edit_Modules" Content="Edit"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+
     </Grid>
 </Page>

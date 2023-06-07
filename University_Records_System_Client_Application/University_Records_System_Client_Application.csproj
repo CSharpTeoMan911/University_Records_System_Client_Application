@@ -71,6 +71,7 @@
     <Compile Include="Courses.xaml.cs">
       <DependentUpon>Courses.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Courses_Data.cs" />
     <Compile Include="Cryptographic_Services_Dispatcher_Controller.cs" />
     <Compile Include="Cryptographic_Services_Main_Dispatcher.cs" />
     <Compile Include="Dispatcher_Controller.cs" />
@@ -98,6 +99,7 @@
     <Compile Include="Students.xaml.cs">
       <DependentUpon>Students.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Student_Data.cs" />
     <Page Include="Application_Settings.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
