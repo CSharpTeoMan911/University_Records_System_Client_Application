@@ -334,13 +334,7 @@ namespace University_Records_System_Client_Application
                 {
                     if (Application.Current.Dispatcher.HasShutdownStarted != true)
                     {
-                        if (Application.Current.MainWindow != null)
-                        {
-                            if (Window_Closing != true)
-                            {
-                                Main_Menu_Expanded_Or_Contracted++;
-                            }
-                        }
+                        Main_Menu_Expanded_Or_Contracted++;
                     }
                 }
             }
@@ -354,26 +348,20 @@ namespace University_Records_System_Client_Application
                 {
                     if (Application.Current.Dispatcher.HasShutdownStarted != true)
                     {
-                        if (Application.Current.MainWindow != null)
+                        string log_in_session_key = (await Settings.Get_Value(Settings.Option.log_in_session_key) as string);
+
+                        byte[] log_out_result = await Server_Connections.Initiate_Server_Connection<string>(log_in_session_key, String.Empty, Client_Variables.Functions.Account_log_out);
+
+                        Message_Displayer.Display_Message(log_out_result);
+
+                        if (Encoding.UTF8.GetString(log_out_result) == "Logged out")
                         {
-                            if (Window_Closing != true)
-                            {
-                                string log_in_session_key = (await Settings.Get_Value(Settings.Option.log_in_session_key) as string);
+                            await cryptographic_controller.Delete_Log_In_Sesion_Key_Controller();
 
-                                byte[] log_out_result = await Server_Connections.Initiate_Server_Connection<string>(log_in_session_key, String.Empty, Client_Variables.Functions.Account_log_out);
+                            Log_In_Or_Register log_In_Or_Register = new Log_In_Or_Register();
+                            log_In_Or_Register.Show();
 
-                                Message_Displayer.Display_Message(log_out_result);
-
-                                if(Encoding.UTF8.GetString(log_out_result) == "Logged out")
-                                {
-                                    await cryptographic_controller.Delete_Log_In_Sesion_Key_Controller();
-
-                                    Log_In_Or_Register log_In_Or_Register = new Log_In_Or_Register();
-                                    log_In_Or_Register.Show();
-
-                                    this.Close();
-                                }
-                            }
+                            this.Close();
                         }
                     }
                 }
@@ -388,18 +376,12 @@ namespace University_Records_System_Client_Application
                 {
                     if (Application.Current.Dispatcher.HasShutdownStarted != true)
                     {
-                        if (Application.Current.MainWindow != null)
+                        if (Page_Navigation_Frame.NavigationService.CanGoBack == true)
                         {
-                            if (Window_Closing != true)
-                            {
-                                if (Page_Navigation_Frame.NavigationService.CanGoBack == true)
-                                {
-                                    Page_Navigation_Frame.NavigationService.RemoveBackEntry();
-                                }
-
-                                Page_Navigation_Frame.NavigationService.Navigate(students);
-                            }
+                            Page_Navigation_Frame.NavigationService.RemoveBackEntry();
                         }
+
+                        Page_Navigation_Frame.NavigationService.Navigate(students);
                     }
                 }
             }
@@ -413,18 +395,12 @@ namespace University_Records_System_Client_Application
                 {
                     if (Application.Current.Dispatcher.HasShutdownStarted != true)
                     {
-                        if (Application.Current.MainWindow != null)
+                        if (Page_Navigation_Frame.NavigationService.CanGoBack == true)
                         {
-                            if (Window_Closing != true)
-                            {
-                                if (Page_Navigation_Frame.NavigationService.CanGoBack == true)
-                                {
-                                    Page_Navigation_Frame.NavigationService.RemoveBackEntry();
-                                }
-
-                                Page_Navigation_Frame.NavigationService.Navigate(courses);
-                            }
+                            Page_Navigation_Frame.NavigationService.RemoveBackEntry();
                         }
+
+                        Page_Navigation_Frame.NavigationService.Navigate(courses);
                     }
                 }
             }

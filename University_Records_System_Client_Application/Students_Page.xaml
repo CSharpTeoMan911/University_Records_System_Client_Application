@@ -60,7 +60,14 @@
                 <DataGridTemplateColumn Width="*" Header="Grades">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button Click="Edit_Grades" Content="Edit"/>
+                            <Button Click="Edit_Grades" Content="Edit" Style="{StaticResource Blue_On_Hover_Margin_Button_Style}">
+                                <Button.Foreground>
+                                    <LinearGradientBrush StartPoint="0.5, 1" EndPoint="0, 1">
+                                        <GradientStop Color="#FF0090FF" Offset="1"/>
+                                        <GradientStop Color="#FF095780"/>
+                                    </LinearGradientBrush>
+                                </Button.Foreground>
+                            </Button>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>

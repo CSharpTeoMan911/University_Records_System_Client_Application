@@ -330,12 +330,12 @@ namespace University_Records_System_Client_Application
         // IN ACCORDANCE WITH THE PACKET SIZE TO BE SENT OR RECEIVED.
         private static Task<int> Calculate_Connection_Timeout(System.Net.Security.SslStream secure_client_stream, int payload_size, int bytes_per_second)
         {
-            int seconds = 1000 * (payload_size / bytes_per_second) + 1000;
+            int milliseconds = 1000 * (payload_size / bytes_per_second) + 1000;
 
-            if (seconds > 1000)
+            if (milliseconds > 1000)
             {
-                secure_client_stream.WriteTimeout = seconds;
-                secure_client_stream.ReadTimeout = seconds;
+                secure_client_stream.WriteTimeout = milliseconds;
+                secure_client_stream.ReadTimeout = milliseconds;
             }
             else
             {
