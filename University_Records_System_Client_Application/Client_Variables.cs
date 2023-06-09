@@ -30,10 +30,13 @@ namespace University_Records_System_Client_Application
             Log_in_session_key_validation,
             Insert_Student_Data,
             Insert_Course_Data,
+            Insert_Grade_Data,
             Delete_Student_Data,
             Delete_Course_Data,
+            Delete_Grades_Data,
             Update_Student_Data,
             Update_Course_Data,
+            Update_Grade_Data,
             Select_Students,
             Select_Courses,
             Select_Grades,
@@ -56,6 +59,9 @@ namespace University_Records_System_Client_Application
             {Functions.Delete_Course_Data, "Delete course"},
             {Functions.Update_Course_Data, "Update course data"},
             {Functions.Select_Grades, "Select grades"},
+            {Functions.Insert_Grade_Data, "Insert grade"},
+            {Functions.Delete_Grades_Data, "Delete grade"},
+            {Functions.Update_Grade_Data, "Update grade data"},
         };
     }
 }

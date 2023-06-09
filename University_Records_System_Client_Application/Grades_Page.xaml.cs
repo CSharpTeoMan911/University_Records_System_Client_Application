@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -44,7 +45,16 @@ namespace University_Records_System_Client_Application
 
         private void Selected_Row(object sender, SelectionChangedEventArgs e)
         {
+            Grade_Data grade_data = (Grade_Data)Grades_Data_Grid.SelectedItem;
 
+            if (grade_data != null)
+            {
+                GradeID_TextBox.Text = grade_data.grade_id;
+                CourseID_TextBox.Text = grade_data.course_ID;
+                StudentID_TextBox.Text = grade_data.student_ID;
+                Module_TextBox.Text = grade_data.subject_module;
+                Grade_TextBox.Text = grade_data.student_grade;
+            }
         }
 
         private void Load_All_Grades(object sender, RoutedEventArgs e)
@@ -75,14 +85,53 @@ namespace University_Records_System_Client_Application
 
 
 
-        private void Delete_Grade(object sender, RoutedEventArgs e)
+        private async void Delete_Grade(object sender, RoutedEventArgs e)
         {
-
+            byte[] result = await Server_Connections.Initiate_Server_Connection<string>((await Settings.Get_Value(Settings.Option.log_in_session_key) as string), GradeID_TextBox.Text, Client_Variables.Functions.Delete_Grades_Data);
+            Clear_Fields();
+            Load_Grades();
         }
 
-        private void Update_Grade_Data(object sender, RoutedEventArgs e)
+        private async void Update_Grade_Data(object sender, RoutedEventArgs e)
         {
+            if (StudentID_TextBox.Text != String.Empty)
+            {
+                if (GradeID_TextBox.Text != String.Empty)
+                {
+                    if (CourseID_TextBox.Text != String.Empty)
+                    {
+                        if (Module_TextBox.Text != String.Empty)
+                        {
+                            if (Grade_TextBox.Text != String.Empty)
+                            {
+                                try
+                                {
+                                    double converted = Convert.ToDouble(Grade_TextBox.Text);
 
+                                    converted = Convert.ToDouble(GradeID_TextBox.Text);
+
+                                    Grade grade = new Grade();
+
+                                    grade.grade_id = Convert.ToInt32(GradeID_TextBox.Text);
+                                    grade.course_ID = CourseID_TextBox.Text;
+                                    grade.student_ID = StudentID_TextBox.Text;
+                                    grade.subject_module = Module_TextBox.Text;
+                                    grade.student_grade = Convert.ToInt32(Grade_TextBox.Text);
+
+
+                                    byte[] result = await Server_Connections.Initiate_Server_Connection<string>((await Settings.Get_Value(Settings.Option.log_in_session_key) as string), Newtonsoft.Json.JsonConvert.SerializeObject(grade), Client_Variables.Functions.Update_Grade_Data);
+
+                                    Load_Grades();
+                                }
+                                catch
+                                {
+                                    Clear_Fields();
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
 
         private void Search_Grades_By_Criteria(object sender, RoutedEventArgs e)
@@ -90,12 +139,54 @@ namespace University_Records_System_Client_Application
 
         }
 
-        private void Insert_Grade(object sender, RoutedEventArgs e)
+        private async void Insert_Grade(object sender, RoutedEventArgs e)
         {
+            if (StudentID_TextBox.Text != String.Empty)
+            {
+                if (GradeID_TextBox.Text != String.Empty)
+                {
+                    if (CourseID_TextBox.Text != String.Empty)
+                    {
+                        if(Module_TextBox.Text != String.Empty)
+                        {
+                            if(Grade_TextBox.Text != String.Empty)
+                            {
+                                try
+                                {
+                                    double converted = Convert.ToDouble(Grade_TextBox.Text);
 
+                                    converted = Convert.ToDouble(GradeID_TextBox.Text);
+
+                                    Grade grade = new Grade();
+
+                                    grade.grade_id = Convert.ToInt32(GradeID_TextBox.Text);
+                                    grade.course_ID = CourseID_TextBox.Text;
+                                    grade.student_ID = StudentID_TextBox.Text;
+                                    grade.subject_module = Module_TextBox.Text;
+                                    grade.student_grade = Convert.ToInt32(Grade_TextBox.Text);
+
+
+                                    byte[] result = await Server_Connections.Initiate_Server_Connection<string>((await Settings.Get_Value(Settings.Option.log_in_session_key) as string), Newtonsoft.Json.JsonConvert.SerializeObject(grade), Client_Variables.Functions.Insert_Grade_Data);
+
+                                    Load_Grades();
+                                }
+                                catch
+                                {
+                                    Clear_Fields();
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
 
         private void Clear_Fields(object sender, RoutedEventArgs e)
+        {
+            Clear_Fields();
+        }
+
+        private void Clear_Fields()
         {
             GradeID_TextBox.Text = String.Empty;
             StudentID_TextBox.Text = String.Empty;
