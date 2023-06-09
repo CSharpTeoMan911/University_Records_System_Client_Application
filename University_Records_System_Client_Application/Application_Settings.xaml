@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:University_Records_System_Client_Application"
         mc:Ignorable="d"
-        Title="Application_Settings" Height="400" Width="320" ResizeMode="NoResize" WindowStyle="None" AllowsTransparency="True" Opacity="0.95" Loaded="Window_Loaded" Closing="Window_Is_Closing">
+        Height="400" Width="320" ResizeMode="NoResize" WindowStyle="None" AllowsTransparency="True" Opacity="0.95" Loaded="Window_Loaded" Closing="Window_Is_Closing" Icon="/Client App Logo.png">
 
     <Window.Clip>
         <RectangleGeometry Rect="0,0,320,400" RadiusX="10" RadiusY="10"/>

@@ -5,6 +5,8 @@ VisualStudioVersion = 17.3.32825.248
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "University_Records_System_Client_Application", "University_Records_System_Client_Application\University_Records_System_Client_Application.csproj", "{DA5A3D1B-06DC-4888-90E2-941BEFFD962E}"
 EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Student Records System Client Application", "Student Records System Client Application\Student Records System Client Application.vdproj", "{FB32B436-A54B-4A64-9567-23919A152DA2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,8 @@ Global
 		{DA5A3D1B-06DC-4888-90E2-941BEFFD962E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DA5A3D1B-06DC-4888-90E2-941BEFFD962E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DA5A3D1B-06DC-4888-90E2-941BEFFD962E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FB32B436-A54B-4A64-9567-23919A152DA2}.Debug|Any CPU.ActiveCfg = Debug
+		{FB32B436-A54B-4A64-9567-23919A152DA2}.Release|Any CPU.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
