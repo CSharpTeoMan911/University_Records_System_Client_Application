@@ -78,8 +78,6 @@
     </Compile>
     <Compile Include="Cryptographic_Services_Dispatcher_Controller.cs" />
     <Compile Include="Cryptographic_Services_Main_Dispatcher.cs" />
-    <Compile Include="Dispatcher_Controller.cs" />
-    <Compile Include="Functions_Dispatcher.cs" />
     <Compile Include="Grade.cs" />
     <Compile Include="Grades.cs" />
     <Compile Include="Grades_Page.xaml.cs">
@@ -92,11 +90,7 @@
     <Compile Include="Log_In_Or_Register.xaml.cs">
       <DependentUpon>Log_In_Or_Register.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Main_Dispatcher.cs" />
     <Compile Include="Message_Displayer.cs" />
-    <Compile Include="Modules_Page.xaml.cs">
-      <DependentUpon>Modules_Page.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Password_Window.xaml.cs">
       <DependentUpon>Password_Window.xaml</DependentUpon>
     </Compile>
@@ -113,7 +107,6 @@
     <Compile Include="Students_Page.xaml.cs">
       <DependentUpon>Students_Page.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Student_Data.cs" />
     <Page Include="Additional_Data_Window.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -150,10 +143,6 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Modules_Page.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Password_Window.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

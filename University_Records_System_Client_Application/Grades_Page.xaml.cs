@@ -220,10 +220,6 @@ namespace University_Records_System_Client_Application
             }
         }
 
-        private void Search_Grades_By_Criteria(object sender, RoutedEventArgs e)
-        {
-
-        }
 
         private async void Insert_Grade(object sender, RoutedEventArgs e)
         {

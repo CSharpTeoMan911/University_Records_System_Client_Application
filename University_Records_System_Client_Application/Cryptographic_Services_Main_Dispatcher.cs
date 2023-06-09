@@ -8,6 +8,8 @@ namespace University_Records_System_Client_Application
 {
     internal class Cryptographic_Services_Main_Dispatcher:Application_Cryptographic_Services
     {
+        // THE APPLICATIONS DISPATCHER CONTROLLER FOR CRYPTOGRAPHIC FUNCTIONS
+
         protected static async Task<object> Dispatcher(Cryptographic_Services_Dispatcher_Controller.Option option, object first_setter, object second_setter, object third_setter)
         {
             object result = new object();

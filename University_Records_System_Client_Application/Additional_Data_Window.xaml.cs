@@ -25,6 +25,7 @@ namespace University_Records_System_Client_Application
         private bool Window_Closing;
         public int OnOff;
 
+
         public enum Page
         {
             Grades_Page,

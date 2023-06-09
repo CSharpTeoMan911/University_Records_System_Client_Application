@@ -8,6 +8,8 @@ namespace University_Records_System_Client_Application
 {
     internal class Cryptographic_Services_Dispatcher_Controller:Cryptographic_Services_Main_Dispatcher
     {
+        // CLASS THAT IS THE CONTROLLER FOR THE APPLICATIONS CRYPTOGRAPHIC FUNCTIONS
+
 
         public enum Option
         {

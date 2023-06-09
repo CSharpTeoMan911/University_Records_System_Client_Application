@@ -175,6 +175,7 @@ namespace University_Records_System_Client_Application
         }
 
 
+        // DELETE A STUDENT FROM THE SYSTEM
         private async void Delete_Student(object sender, RoutedEventArgs e)
         {
             byte[] result = await Server_Connections.Initiate_Server_Connection<string>((await Settings.Get_Value(Settings.Option.log_in_session_key) as string), StudentID_TextBox.Text, Client_Variables.Functions.Delete_Student_Data);
@@ -183,11 +184,15 @@ namespace University_Records_System_Client_Application
             Load_All_Student_Data();
         }
 
+
+
         private void Clear_Fields(object sender, RoutedEventArgs e)
         {
             Clear_Fields();
         }
 
+
+        // CLEAR THE FIELDS IN THE PAGE
         private void Clear_Fields()
         {
             FullName_TextBox.Text = String.Empty;
@@ -196,6 +201,8 @@ namespace University_Records_System_Client_Application
             DateOfBirth_DatePicker.Text = String.Empty;
         }
 
+
+        // UPDATE THE DATA ASSOCIATED WITH A STUDENT IN THE SYSTEM USING THE VALUES INSERTED
         private async void Update_Student_Data(object sender, RoutedEventArgs e)
         {
             if (StudentID_TextBox.Text != String.Empty)

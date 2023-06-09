@@ -12,6 +12,9 @@ namespace University_Records_System_Client_Application
 
     class Client_Variables
     {
+        // CLASS THAT STORES GLOBAL APPLICATION VARIABLES AND FUNCTION CALLS FOR THE API
+
+
         protected static string email;
         protected static string log_in_session_key;
         protected static bool keep_user_logged_in;
