@@ -46,25 +46,11 @@ namespace University_Records_System_Client_Application
         }
 
 
-        private sealed class Client_Variables_Mitigator : Client_Variables
-        {
-            internal static Task<string> Get_Log_In_Session_Key()
-            {
-                return Task.FromResult(log_in_session_key);
-            }
-        }
-
-
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
             Load_All_Courses_Data();
         }
 
-
-        private void Edit_Modules(object sender, RoutedEventArgs e)
-        {
-
-        }
 
         private async void Load_All_Courses_Data()
         {
@@ -74,74 +60,83 @@ namespace University_Records_System_Client_Application
 
             byte[] result = await Server_Connections.Initiate_Server_Connection<string>((await Settings.Get_Value(Settings.Option.log_in_session_key) as string), "", Client_Variables.Functions.Select_Courses);
 
-            Courses courses = Newtonsoft.Json.JsonConvert.DeserializeObject<Courses>(Encoding.UTF8.GetString(result));
+            string result_string = Encoding.UTF8.GetString(result);
 
-
-            foreach (Course c in courses.courses)
+            if (result_string != "Value selection failed")
             {
-                System.Diagnostics.Debug.WriteLine(c.location);
+                Courses courses = Newtonsoft.Json.JsonConvert.DeserializeObject<Courses>(Encoding.UTF8.GetString(result));
 
-                if (Course_ID_Filter.IsChecked == true)
+                foreach (Course c in courses.courses)
                 {
-                    if (CourseID_TextBox.Text == c.course_ID)
-                    {
-                        Courses_Data_Grid.Items.Add(new Course_Data { course_ID = c.course_ID, course_Department = c.course_Department, postgraduate = c.postgraduate, location = c.location, duration = c.duration });
-                    }
-                }
-                else if (Department_Filter.IsChecked == true)
-                {
-                    if (Department_TextBox.Text == c.course_Department)
-                    {
-                        Courses_Data_Grid.Items.Add(new Course_Data { course_ID = c.course_ID, course_Department = c.course_Department, postgraduate = c.postgraduate, location = c.location, duration = c.duration });
-                    }
-                }
-                else if (Postgraduate_Filter.IsChecked == true)
-                {
-                    bool postgraduate = false;
+                    System.Diagnostics.Debug.WriteLine(c.location);
 
-                    if (Postgraduate_Yes.IsChecked == true)
+                    if (Course_ID_Filter.IsChecked == true)
                     {
-                        postgraduate = true;
-                    }
-                    else if (Postgraduate_No.IsChecked == true)
-                    {
-                        postgraduate = false;
-                    }
-
-                    if (postgraduate == c.postgraduate)
-                    {
-                        Courses_Data_Grid.Items.Add(new Course_Data { course_ID = c.course_ID, course_Department = c.course_Department, postgraduate = c.postgraduate, location = c.location, duration = c.duration });
-                    }
-                }
-                else if (Location_Filter.IsChecked == true)
-                {
-                    if (Location_TextBox.Text == c.location)
-                    {
-                        Courses_Data_Grid.Items.Add(new Course_Data { course_ID = c.course_ID, course_Department = c.course_Department, postgraduate = c.postgraduate, location = c.location, duration = c.duration });
-                    }
-                }
-                else if (Duration_Filter.IsChecked == true)
-                {
-                    try
-                    {
-                        double converted = Convert.ToDouble(Duration_TextBox.Text);
-
-                        if (Convert.ToInt32(Duration_TextBox.Text) == c.duration)
+                        if (CourseID_TextBox.Text == c.course_ID)
                         {
                             Courses_Data_Grid.Items.Add(new Course_Data { course_ID = c.course_ID, course_Department = c.course_Department, postgraduate = c.postgraduate, location = c.location, duration = c.duration });
                         }
                     }
-                    catch
+                    else if (Department_Filter.IsChecked == true)
                     {
-
+                        if (Department_TextBox.Text == c.course_Department)
+                        {
+                            Courses_Data_Grid.Items.Add(new Course_Data { course_ID = c.course_ID, course_Department = c.course_Department, postgraduate = c.postgraduate, location = c.location, duration = c.duration });
+                        }
                     }
-                }
-                else if (None_Filter.IsChecked == true)
-                {
-                    Courses_Data_Grid.Items.Add(new Course_Data { course_ID = c.course_ID, course_Department = c.course_Department, postgraduate = c.postgraduate, location = c.location, duration = c.duration });
-                }
+                    else if (Postgraduate_Filter.IsChecked == true)
+                    {
+                        bool postgraduate = false;
 
+                        if (Postgraduate_Yes.IsChecked == true)
+                        {
+                            postgraduate = true;
+                        }
+                        else if (Postgraduate_No.IsChecked == true)
+                        {
+                            postgraduate = false;
+                        }
+
+                        if (postgraduate == c.postgraduate)
+                        {
+                            Courses_Data_Grid.Items.Add(new Course_Data { course_ID = c.course_ID, course_Department = c.course_Department, postgraduate = c.postgraduate, location = c.location, duration = c.duration });
+                        }
+                    }
+                    else if (Location_Filter.IsChecked == true)
+                    {
+                        if (Location_TextBox.Text == c.location)
+                        {
+                            Courses_Data_Grid.Items.Add(new Course_Data { course_ID = c.course_ID, course_Department = c.course_Department, postgraduate = c.postgraduate, location = c.location, duration = c.duration });
+                        }
+                    }
+                    else if (Duration_Filter.IsChecked == true)
+                    {
+                        try
+                        {
+                            double converted = Convert.ToDouble(Duration_TextBox.Text);
+
+                            if (Convert.ToInt32(Duration_TextBox.Text) == c.duration)
+                            {
+                                Courses_Data_Grid.Items.Add(new Course_Data { course_ID = c.course_ID, course_Department = c.course_Department, postgraduate = c.postgraduate, location = c.location, duration = c.duration });
+                            }
+                        }
+                        catch
+                        {
+
+                        }
+                    }
+                    else if (None_Filter.IsChecked == true)
+                    {
+                        Courses_Data_Grid.Items.Add(new Course_Data { course_ID = c.course_ID, course_Department = c.course_Department, postgraduate = c.postgraduate, location = c.location, duration = c.duration });
+                    }
+
+                }
             }
+            else
+            {
+                Message_Displayer.Display_Message(result);
+            }
+
 
 
             Courses_Data_Grid.EndInit();
@@ -155,6 +150,7 @@ namespace University_Records_System_Client_Application
         private async void Delete_Course(object sender, RoutedEventArgs e)
         {
             byte[] result = await Server_Connections.Initiate_Server_Connection<string>((await Settings.Get_Value(Settings.Option.log_in_session_key) as string), CourseID_TextBox.Text, Client_Variables.Functions.Delete_Course_Data);
+            Message_Displayer.Display_Message(result);
             Clear_Fields();
             Load_All_Courses_Data();
         }
@@ -196,6 +192,7 @@ namespace University_Records_System_Client_Application
 
 
                                 byte[] result = await Server_Connections.Initiate_Server_Connection<string>((await Settings.Get_Value(Settings.Option.log_in_session_key) as string), Newtonsoft.Json.JsonConvert.SerializeObject(course), Client_Variables.Functions.Insert_Course_Data);
+                                Message_Displayer.Display_Message(result);
                             }
                             catch
                             {
@@ -240,6 +237,7 @@ namespace University_Records_System_Client_Application
 
 
                 byte[] result = await Server_Connections.Initiate_Server_Connection<string>((await Settings.Get_Value(Settings.Option.log_in_session_key) as string), Newtonsoft.Json.JsonConvert.SerializeObject(course), Client_Variables.Functions.Update_Course_Data);
+                Message_Displayer.Display_Message(result);
             }
             catch
             {

@@ -69,6 +69,50 @@ namespace University_Records_System_Client_Application
                     case "Invalid log in session key":
                         MessageBox.Show("Please log in again.", "Log in session expired", MessageBoxButton.OK, MessageBoxImage.Information, MessageBoxResult.OK);
                         break;
+
+                    case "Value selection failed":
+                        MessageBox.Show("Data could not be loaded", "Check your connection or log in again", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK);
+                        break;
+
+                    case "Course already exists":
+                        MessageBox.Show("Course already exists", "The course that you entered already exists", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK);
+                        break;
+
+                    case "Exceeded maximum duration":
+                        MessageBox.Show("Maximum course duration exceeded", "The selected duration for this course is over 7 years", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK);
+                        break;
+
+                    case "Value insertion failed":
+                        MessageBox.Show("Data could not be inserted", "Check your connection or log in again", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK);
+                        break;
+
+                    case "Value inserted":
+                        MessageBox.Show("Data inserted successfuly", "Data was inserted succesfuly", MessageBoxButton.OK, MessageBoxImage.Information, MessageBoxResult.OK);
+                        break;
+
+                    case "Value deletion failed":
+                        MessageBox.Show("Data could not be deleted", "Check your connection or log in again", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK);
+                        break;
+
+                    case "Value modification successful":
+                        MessageBox.Show("Data modificated successfuly", "Data was modificated succesfuly", MessageBoxButton.OK, MessageBoxImage.Information, MessageBoxResult.OK);
+                        break;
+
+                    case "Course does not exist":
+                        MessageBox.Show("Invalid course", "The course inserted does not exist", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK);
+                        break;
+
+                    case "Student already exists":
+                        MessageBox.Show("Student already exists", "The student inserted already exists", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK);
+                        break;
+
+                    case "Grade already exists":
+                        MessageBox.Show("Grade already exists", "The grade inserted already exists", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK);
+                        break;
+
+                    case "Grade exceeded maximum value":
+                        MessageBox.Show("Maximum grade value exceeded", "The value for this grade exceeds the 100 points maximum value", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK);
+                        break;
                 }
             });
         }

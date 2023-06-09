@@ -70,62 +70,71 @@ namespace University_Records_System_Client_Application
             Grades_Data_Grid.Items.Clear();
 
             byte[] result = await Server_Connections.Initiate_Server_Connection<string>((await Settings.Get_Value(Settings.Option.log_in_session_key) as string), ID, Client_Variables.Functions.Select_Grades);
+            string result_string = Encoding.UTF8.GetString(result);
 
-            Grades grades = Newtonsoft.Json.JsonConvert.DeserializeObject<Grades>(Encoding.UTF8.GetString(result));
-
-            foreach (Grade g in grades.grades)
+            if (result_string != "Value selection failed")
             {
-                if(GradeID_Filter.IsChecked == true)
-                {
-                    try
-                    {
-                        double converted = Convert.ToDouble(GradeID_TextBox.Text);
+                Grades grades = Newtonsoft.Json.JsonConvert.DeserializeObject<Grades>(Encoding.UTF8.GetString(result));
 
-                        if (Convert.ToInt32(GradeID_TextBox.Text) == g.grade_id)
+                foreach (Grade g in grades.grades)
+                {
+                    if (GradeID_Filter.IsChecked == true)
+                    {
+                        try
+                        {
+                            double converted = Convert.ToDouble(GradeID_TextBox.Text);
+
+                            if (Convert.ToInt32(GradeID_TextBox.Text) == g.grade_id)
+                            {
+                                Grades_Data_Grid.Items.Add(new Grade_Data { grade_id = g.grade_id.ToString(), student_ID = g.student_ID, course_ID = g.course_ID, subject_module = g.subject_module, student_grade = g.student_grade.ToString() });
+                            }
+                        }
+                        catch
+                        {
+
+                        }
+                    }
+                    else if (CourseID_Filter.IsChecked == true)
+                    {
+                        if (CourseID_TextBox.Text == g.course_ID)
                         {
                             Grades_Data_Grid.Items.Add(new Grade_Data { grade_id = g.grade_id.ToString(), student_ID = g.student_ID, course_ID = g.course_ID, subject_module = g.subject_module, student_grade = g.student_grade.ToString() });
                         }
                     }
-                    catch
+                    else if (Module_Filter.IsChecked == true)
                     {
-
-                    }
-                }
-                else if (CourseID_Filter.IsChecked == true)
-                {
-                    if(CourseID_TextBox.Text == g.course_ID)
-                    {
-                        Grades_Data_Grid.Items.Add(new Grade_Data { grade_id = g.grade_id.ToString(), student_ID = g.student_ID, course_ID = g.course_ID, subject_module = g.subject_module, student_grade = g.student_grade.ToString() });
-                    }
-                }
-                else if (Module_Filter.IsChecked == true)
-                {
-                    if (Module_TextBox.Text == g.subject_module)
-                    {
-                        Grades_Data_Grid.Items.Add(new Grade_Data { grade_id = g.grade_id.ToString(), student_ID = g.student_ID, course_ID = g.course_ID, subject_module = g.subject_module, student_grade = g.student_grade.ToString() });
-                    }
-                }
-                else if (Grade_Filter.IsChecked == true)
-                {
-                    try
-                    {
-                        double converted = Convert.ToDouble(Grade_TextBox.Text);
-
-                        if (Convert.ToInt32(Grade_TextBox.Text) == g.student_grade)
+                        if (Module_TextBox.Text == g.subject_module)
                         {
                             Grades_Data_Grid.Items.Add(new Grade_Data { grade_id = g.grade_id.ToString(), student_ID = g.student_ID, course_ID = g.course_ID, subject_module = g.subject_module, student_grade = g.student_grade.ToString() });
                         }
                     }
-                    catch
+                    else if (Grade_Filter.IsChecked == true)
                     {
+                        try
+                        {
+                            double converted = Convert.ToDouble(Grade_TextBox.Text);
 
+                            if (Convert.ToInt32(Grade_TextBox.Text) == g.student_grade)
+                            {
+                                Grades_Data_Grid.Items.Add(new Grade_Data { grade_id = g.grade_id.ToString(), student_ID = g.student_ID, course_ID = g.course_ID, subject_module = g.subject_module, student_grade = g.student_grade.ToString() });
+                            }
+                        }
+                        catch
+                        {
+
+                        }
                     }
-                }
-                else if(None_Filter.IsChecked == true)
-                {
-                    Grades_Data_Grid.Items.Add(new Grade_Data { grade_id = g.grade_id.ToString(), student_ID = g.student_ID, course_ID = g.course_ID, subject_module = g.subject_module, student_grade = g.student_grade.ToString() });
+                    else if (None_Filter.IsChecked == true)
+                    {
+                        Grades_Data_Grid.Items.Add(new Grade_Data { grade_id = g.grade_id.ToString(), student_ID = g.student_ID, course_ID = g.course_ID, subject_module = g.subject_module, student_grade = g.student_grade.ToString() });
+                    }
                 }
             }
+            else
+            {
+                Message_Displayer.Display_Message(result);
+            }
+
 
             Grades_Data_Grid.EndInit();
         }
@@ -158,6 +167,7 @@ namespace University_Records_System_Client_Application
 
 
                                 byte[] result = await Server_Connections.Initiate_Server_Connection<string>((await Settings.Get_Value(Settings.Option.log_in_session_key) as string), Newtonsoft.Json.JsonConvert.SerializeObject(grade), Client_Variables.Functions.Delete_Grades_Data);
+                                Message_Displayer.Display_Message(result);
                                 Clear_Fields();
                                 Load_Grades();
                             }
@@ -197,7 +207,7 @@ namespace University_Records_System_Client_Application
 
 
                                 byte[] result = await Server_Connections.Initiate_Server_Connection<string>((await Settings.Get_Value(Settings.Option.log_in_session_key) as string), Newtonsoft.Json.JsonConvert.SerializeObject(grade), Client_Variables.Functions.Update_Grade_Data);
-
+                                Message_Displayer.Display_Message(result);
                                 Load_Grades();
                             }
                             catch
@@ -241,7 +251,7 @@ namespace University_Records_System_Client_Application
 
 
                                 byte[] result = await Server_Connections.Initiate_Server_Connection<string>((await Settings.Get_Value(Settings.Option.log_in_session_key) as string), Newtonsoft.Json.JsonConvert.SerializeObject(grade), Client_Variables.Functions.Insert_Grade_Data);
-
+                                Message_Displayer.Display_Message(result);
                                 Load_Grades();
                             }
                             catch
