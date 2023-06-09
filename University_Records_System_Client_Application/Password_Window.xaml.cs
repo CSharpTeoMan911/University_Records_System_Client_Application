@@ -115,7 +115,12 @@ namespace University_Records_System_Client_Application
                                             // THE SERVER TRANSMITTED AS A RESULT OF THE OPERATION A LOG IN SESSION KEY. THE LOG IN SESSION
                                             // KEY MUST ME USED BY THE CLIENT IN A TRANSACTION WITH THE SERVER BEFORE ANY APPLICATION 
                                             // FUNCTION THAT REQUIRE THE USER TO BE AUTHENTIFICATED.
-                                            await cryptographic_controller.Save_Log_In_Key_Controller(email, Encoding.UTF8.GetString(log_in_code_validation_result), true);
+
+                                            if((bool)(await Settings.Get_Value(Settings.Option.keep_user_logged_in)) == true)
+                                            {
+                                                await cryptographic_controller.Save_Log_In_Key_Controller(email, Encoding.UTF8.GetString(log_in_code_validation_result), true);
+                                            }
+
                                             Log_In_Or_Register.Navigate("Main Window");
                                             this.Close();
                                         }
