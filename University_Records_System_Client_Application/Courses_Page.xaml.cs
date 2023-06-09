@@ -1,0 +1,231 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
+using System.Windows.Shapes;
+
+namespace University_Records_System_Client_Application
+{
+    /// <summary>
+    /// Interaction logic for Courses_Page.xaml
+    /// </summary>
+    public partial class Courses_Page : Page
+    {
+        string course_Id;
+
+        public Courses_Page()
+        {
+            InitializeComponent();
+        }
+
+        public Courses_Page(string course_ID)
+        {
+            course_Id = course_ID;
+            InitializeComponent();
+        }
+
+
+        public class Course_Data
+        {
+            public string course_ID { get; set; }
+            public string course_Department { get; set; }
+            public bool postgraduate { get; set; }
+            public string location { get; set; }
+            public int duration { get; set; }
+        }
+
+
+        private sealed class Client_Variables_Mitigator : Client_Variables
+        {
+            internal static Task<string> Get_Log_In_Session_Key()
+            {
+                return Task.FromResult(log_in_session_key);
+            }
+        }
+
+
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            Load_All_Courses_Data();
+        }
+
+
+        private void Edit_Modules(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private async void Load_All_Courses_Data()
+        {
+            Courses_Data_Grid.BeginInit();
+
+            Courses_Data_Grid.Items.Clear();
+
+            byte[] result = await Server_Connections.Initiate_Server_Connection<string>((await Settings.Get_Value(Settings.Option.log_in_session_key) as string), "", Client_Variables.Functions.Select_Courses);
+
+            Courses courses = Newtonsoft.Json.JsonConvert.DeserializeObject<Courses>(Encoding.UTF8.GetString(result));
+
+            System.Diagnostics.Debug.WriteLine(Encoding.UTF8.GetString(result));
+
+            foreach (Course c in courses.courses)
+            {
+                System.Diagnostics.Debug.WriteLine(c.location);
+
+                Courses_Data_Grid.Items.Add(new Course_Data{ course_ID  = c.course_ID, course_Department = c.course_Department, postgraduate = c.postgraduate, location = c.location, duration = c.duration});
+            }
+
+            Courses_Data_Grid.EndInit();
+        }
+
+        private void Load_All_Courses(object sender, RoutedEventArgs e)
+        {
+            Load_All_Courses_Data();
+        }
+
+        private void Search_Courses_By_Criteria(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private async void Delete_Course(object sender, RoutedEventArgs e)
+        {
+            byte[] result = await Server_Connections.Initiate_Server_Connection<string>((await Settings.Get_Value(Settings.Option.log_in_session_key) as string), CourseID_TextBox.Text, Client_Variables.Functions.Delete_Course_Data);
+            Clear_Fields();
+            Load_All_Courses_Data();
+        }
+
+        private async void Insert_Course(object sender, RoutedEventArgs e)
+        {
+            if (CourseID_TextBox.Text != String.Empty)
+            {
+                if (Department_TextBox.Text != String.Empty)
+                {
+                    if (Location_TextBox.Text != String.Empty)
+                    {
+                        if(Duration_TextBox.Text != String.Empty)
+                        {
+                            Course course = new Course();
+
+                            course.course_ID = CourseID_TextBox.Text;
+                            course.location = Location_TextBox.Text;
+                            course.course_Department = Department_TextBox.Text;
+
+                            try
+                            {
+                                double converted = Convert.ToDouble(Duration_TextBox.Text);
+
+                                course.duration = Convert.ToInt32(Duration_TextBox.Text);
+
+                                course.location = Location_TextBox.Text;
+
+                                if (Postgraduate_Yes.IsChecked == true)
+                                {
+                                    course.postgraduate = true;
+                                }
+
+
+                                if (Postgraduate_No.IsChecked == true)
+                                {
+                                    course.postgraduate = true;
+                                }
+
+
+                                byte[] result = await Server_Connections.Initiate_Server_Connection<string>((await Settings.Get_Value(Settings.Option.log_in_session_key) as string), Newtonsoft.Json.JsonConvert.SerializeObject(course), Client_Variables.Functions.Insert_Course_Data);
+
+                                Load_All_Courses_Data();
+                            }
+                            catch
+                            {
+                                Clear_Fields();
+                            }
+
+                        }
+                    }
+                }
+            }
+
+            Load_All_Courses_Data();
+        }
+
+        private async void Update_Course_Data(object sender, RoutedEventArgs e)
+        {
+            Course course = new Course();
+
+            course.course_ID = CourseID_TextBox.Text;
+            course.location = Location_TextBox.Text;
+            course.course_Department = Department_TextBox.Text;
+
+
+            try
+            {
+                double converted = Convert.ToDouble(Duration_TextBox.Text);
+
+                course.duration = Convert.ToInt32(Duration_TextBox.Text);
+
+                course.location = Location_TextBox.Text;
+
+                if (Postgraduate_Yes.IsChecked == true)
+                {
+                    course.postgraduate = true;
+                }
+
+
+                if (Postgraduate_No.IsChecked == false)
+                {
+                    course.postgraduate = true;
+                }
+
+
+                byte[] result = await Server_Connections.Initiate_Server_Connection<string>((await Settings.Get_Value(Settings.Option.log_in_session_key) as string), Newtonsoft.Json.JsonConvert.SerializeObject(course), Client_Variables.Functions.Update_Course_Data);
+            }
+            catch
+            {
+                Clear_Fields();
+            }
+        }
+
+        private void Clear_Fields(object sender, RoutedEventArgs e)
+        {
+            Clear_Fields();
+        }
+
+        private void Selected_Row(object sender, SelectionChangedEventArgs e)
+        {
+            Course_Data course_data = (Course_Data)Courses_Data_Grid.SelectedItem;
+
+            if (course_data != null)
+            {
+                CourseID_TextBox.Text = course_data.course_ID;
+                Department_TextBox.Text = course_data.course_Department;
+                Location_TextBox.Text = course_data.location;
+                Duration_TextBox.Text = course_data.duration.ToString();
+
+                if(course_data.postgraduate == true)
+                {
+                    Postgraduate_Yes.IsChecked = true;
+                }
+                else
+                {
+                    Postgraduate_No.IsChecked = true;
+                }
+            }
+        }
+
+        private void Clear_Fields()
+        {
+            CourseID_TextBox.Text = String.Empty;
+            Department_TextBox.Text = String.Empty;
+            Location_TextBox.Text = String.Empty;
+            Duration_TextBox.Text = String.Empty;
+        }
+    }
+}

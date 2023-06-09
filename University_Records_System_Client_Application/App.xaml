@@ -4,8 +4,104 @@
              xmlns:local="clr-namespace:University_Records_System_Client_Application"
              StartupUri="Log_In_Or_Register.xaml">
     <Application.Resources>
+
+        <Style x:Key="Dodger_Blue_TextBlock_Gradient_Foreground" TargetType="TextBlock">
+            <Setter Property="Foreground">
+                <Setter.Value>
+                    <LinearGradientBrush StartPoint="0.5, 1" EndPoint="0, 1">
+                        <GradientStop Color="#FF0090FF" Offset="1"/>
+                        <GradientStop Color="#FF095780"/>
+                    </LinearGradientBrush>
+                </Setter.Value>
+            </Setter>
+
+            <Setter Property="FontSize" Value="14"/>
+        </Style>
+
+        <Style x:Key="Gray_Background_Small_TextBox" TargetType="TextBox">
+            <Setter Property="Margin" Value="0,2,0,0"/>
+
+            <Setter Property="Width" Value="110"/>
+
+            <Setter Property="Height" Value="30"/>
+
+            <Setter Property="FontSize" Value="18"/>
+            
+            <Setter Property="Background">
+                <Setter.Value>
+                    <LinearGradientBrush StartPoint="0.5, 1" EndPoint="0, 1">
+                        <GradientStop Color="#FF3A3A3A" Offset="1"/>
+                        <GradientStop Color="#FF272727"/>
+                    </LinearGradientBrush>
+                </Setter.Value>
+            </Setter>
+
+            <Setter Property="Foreground">
+                <Setter.Value>
+                    <LinearGradientBrush StartPoint="0.5, 1" EndPoint="0, 1">
+                        <GradientStop Color="#FF0090FF" Offset="1"/>
+                        <GradientStop Color="#FF095780"/>
+                    </LinearGradientBrush>
+                </Setter.Value>
+            </Setter>
+
+            <Setter Property="Clip">
+                <Setter.Value>
+                    <RectangleGeometry Rect="0,0,110,25" RadiusX="5" RadiusY="5"/>
+                </Setter.Value>
+            </Setter>
+
+            <Setter Property="CaretBrush">
+                <Setter.Value>
+                    <LinearGradientBrush StartPoint="0.5, 1" EndPoint="0, 1">
+                        <GradientStop Color="#FF0090FF" Offset="1"/>
+                        <GradientStop Color="#FF095780"/>
+                    </LinearGradientBrush>
+                </Setter.Value>
+            </Setter>
+            
+        </Style>
+
+        <Style x:Key="Small_Rounded_Gray_Button" TargetType="Button">
+            <Setter Property="OverridesDefaultStyle" Value="True"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Name="border" 
+                            BorderThickness="2"
+                            Padding="4,2" 
+                            BorderBrush="Transparent" 
+                            CornerRadius="3">
+                            <Border.Background>
+                                <LinearGradientBrush StartPoint="0.5, 1" EndPoint="0, 1">
+                                    <GradientStop Color="#FF3A3A3A" Offset="1"/>
+                                    <GradientStop Color="#FF272727"/>
+                                </LinearGradientBrush>
+                            </Border.Background>
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="BorderBrush" Value="#FF0090FF" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+
+            <Setter Property="Foreground">
+                <Setter.Value>
+                    <LinearGradientBrush StartPoint="0.5, 1" EndPoint="0, 1">
+                        <GradientStop Color="#FF0090FF" Offset="1"/>
+                        <GradientStop Color="#FF095780"/>
+                    </LinearGradientBrush>
+                </Setter.Value>
+            </Setter>
+
+            <Setter Property="FontSize" Value="13"/>
+        </Style>
         
-        
+
         <Style x:Key="Blue_On_Hover_Margin_Button_Style" TargetType="Button">
             <Setter Property="OverridesDefaultStyle" Value="True"/>
             <Setter Property="Template">

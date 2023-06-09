@@ -6,9 +6,141 @@
       xmlns:local="clr-namespace:University_Records_System_Client_Application"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="Grades_Page">
+      Title="Grades_Page" Loaded="Page_Loaded">
 
     <Grid>
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.RowSpan="2" Grid.ColumnSpan="9" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Bahnschrift" FontSize="40" Text="Grades">
+            <TextBlock.Foreground>
+                <LinearGradientBrush StartPoint="0.5, 1" EndPoint="0, 1">
+                    <GradientStop x:Name="Main_Menu_Button_Offset" Color="#FF0090FF" Offset="1"/>
+                    <GradientStop Color="#FF095780"/>
+                </LinearGradientBrush>
+            </TextBlock.Foreground>
+        </TextBlock>
+
+        <DataGrid x:Name="Grades_Data_Grid" SelectionChanged="Selected_Row" IsReadOnly="True" Margin="10,0,10,0" Grid.Row="2" Grid.RowSpan="4" Grid.ColumnSpan="9" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+
+            <DataGrid.Resources>
+                <Style BasedOn="{StaticResource {x:Type DataGridColumnHeader}}" TargetType="{x:Type DataGridColumnHeader}">
+                    <Setter Property="Background" Value="#FF1F1F1F" />
+                    <Setter Property="FontSize" Value="15"/>
+                </Style>
+            </DataGrid.Resources>
+
+            <DataGrid.Columns>
+                <DataGridTextColumn Width="*" Header="Grade ID" Binding="{Binding grade_id}"/>
+                <DataGridTextColumn Width="*" Header="Student ID" Binding="{Binding student_ID}"/>
+                <DataGridTextColumn Width="*" Header="Course ID" Binding="{Binding course_ID}"/>
+                <DataGridTextColumn Width="*" Header="Module" Binding="{Binding subject_module}"/>
+                <DataGridTextColumn Width="*" Header="Grade" Binding="{Binding student_grade}"/>
+            </DataGrid.Columns>
+
+            <DataGrid.Background>
+                <LinearGradientBrush StartPoint="0.5, 1" EndPoint="0, 1">
+                    <GradientStop Color="#FF3A3A3A" Offset="1"/>
+                    <GradientStop Color="#FF272727"/>
+                </LinearGradientBrush>
+            </DataGrid.Background>
+
+            <DataGrid.Foreground>
+                <LinearGradientBrush StartPoint="0.5, 1" EndPoint="0, 1">
+                    <GradientStop Color="#FF0090FF" Offset="1"/>
+                    <GradientStop Color="#FF095780"/>
+                </LinearGradientBrush>
+            </DataGrid.Foreground>
+
+        </DataGrid>
+
+
+
+
+        <StackPanel Orientation="Horizontal" Grid.Row="6" Grid.RowSpan="3" Grid.ColumnSpan="9" HorizontalAlignment="Center" VerticalAlignment="Center">
+
+
+            <StackPanel HorizontalAlignment="Center">
+
+                <StackPanel Orientation="Horizontal" >
+
+                    <StackPanel Orientation="Horizontal"  Margin="0,0,40,0">
+                        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Text="Grade ID: " Style="{StaticResource Dodger_Blue_TextBlock_Gradient_Foreground}"/>
+                        <TextBox Name="GradeID_TextBox" Style="{StaticResource Gray_Background_Small_TextBox}"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" Margin="0,0,0,0">
+                        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Text="Student ID: " Style="{StaticResource Dodger_Blue_TextBlock_Gradient_Foreground}"/>
+                        <TextBox Name="StudentID_TextBox" Style="{StaticResource Gray_Background_Small_TextBox}"/>
+                    </StackPanel>
+
+                </StackPanel>
+
+                
+                
+                <StackPanel Margin="0,15,0,0" Orientation="Horizontal">
+                    <StackPanel Orientation="Horizontal"  Margin="0,0,40,0">
+                        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Text="Course ID: " Style="{StaticResource Dodger_Blue_TextBlock_Gradient_Foreground}"/>
+                        <TextBox Name="CourseID_TextBox" Style="{StaticResource Gray_Background_Small_TextBox}"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" Margin="0,0,0,0">
+                        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Text="Module: " Style="{StaticResource Dodger_Blue_TextBlock_Gradient_Foreground}"/>
+                        <TextBox Name="Module_TextBox" Style="{StaticResource Gray_Background_Small_TextBox}"/>
+                    </StackPanel>
+
+
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal"  Margin="0,15,40,0">
+                    <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Text="Grade: " Style="{StaticResource Dodger_Blue_TextBlock_Gradient_Foreground}"/>
+                    <TextBox Name="Grade_TextBox" Style="{StaticResource Gray_Background_Small_TextBox}"/>
+                </StackPanel>
+
+            </StackPanel>
+
+
+
+            <StackPanel  HorizontalAlignment="Center" Margin="60,0,0,0">
+
+
+                <Button HorizontalAlignment="Left" Width="{Binding ElementName=Update_Data_Button, Path=ActualWidth}" Margin="0,3,20,0" Content="Load all grades" Style="{StaticResource Small_Rounded_Gray_Button}" Click="Load_All_Grades"/>
+                <Button HorizontalAlignment="Left" Width="{Binding ElementName=Update_Data_Button, Path=ActualWidth}" Margin="0,5,20,0" Content="Delete grade" Style="{StaticResource Small_Rounded_Gray_Button}" Click="Delete_Grade"/>
+                <Button x:Name="Update_Data_Button" HorizontalAlignment="Left" Margin="0,5,20,0" Content="Update grade data" Style="{StaticResource Small_Rounded_Gray_Button}" Click="Update_Grade_Data"/>
+
+            </StackPanel>
+
+
+            <StackPanel  HorizontalAlignment="Center" Margin="10,0,0,0">
+
+                <Button HorizontalAlignment="Left" Width="{Binding ElementName=Update_Data_Button, Path=ActualWidth}" Margin="0,3,0,0" Content="Search" Style="{StaticResource Small_Rounded_Gray_Button}" Click="Search_Grades_By_Criteria"/>
+                <Button HorizontalAlignment="Left" Width="{Binding ElementName=Update_Data_Button, Path=ActualWidth}" Margin="0,5,20,0" Content="Insert grade" Style="{StaticResource Small_Rounded_Gray_Button}" Click="Insert_Grade"/>
+                <Button HorizontalAlignment="Left" Width="{Binding ElementName=Update_Data_Button, Path=ActualWidth}" Margin="0,5,20,0" Content="Clear" Style="{StaticResource Small_Rounded_Gray_Button}" Click="Clear_Fields"/>
+
+            </StackPanel>
+
+        </StackPanel>
+
     </Grid>
 </Page>

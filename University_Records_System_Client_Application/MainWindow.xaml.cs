@@ -25,8 +25,8 @@ namespace University_Records_System_Client_Application
         private short Main_Menu_Expanded_Or_Contracted;
         private System.Timers.Timer Animation_Timer;
 
-        private static Students students = new Students();
-        private static Courses courses = new Courses();
+        private static Students_Page students = new Students_Page();
+        private static Courses_Page courses = new Courses_Page();
 
         private static Cryptographic_Services_Dispatcher_Controller cryptographic_controller = new Cryptographic_Services_Dispatcher_Controller();
 
@@ -306,7 +306,7 @@ namespace University_Records_System_Client_Application
                 Page_Navigation_Frame.NavigationService.RemoveBackEntry();
             }
 
-            Page_Navigation_Frame.NavigationService.Navigate(courses);
+            Page_Navigation_Frame.NavigationService.Navigate(students);
         }
 
         private void Window_Is_Closing(object sender, System.ComponentModel.CancelEventArgs e)

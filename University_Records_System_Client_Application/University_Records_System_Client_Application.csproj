@@ -71,14 +71,17 @@
     </Compile>
     <Compile Include="Client_Variables.cs" />
     <Compile Include="Client_WSDL_Payload.cs" />
-    <Compile Include="Courses.xaml.cs">
-      <DependentUpon>Courses.xaml</DependentUpon>
+    <Compile Include="Course.cs" />
+    <Compile Include="Courses.cs" />
+    <Compile Include="Courses_Page.xaml.cs">
+      <DependentUpon>Courses_Page.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Courses_Data.cs" />
     <Compile Include="Cryptographic_Services_Dispatcher_Controller.cs" />
     <Compile Include="Cryptographic_Services_Main_Dispatcher.cs" />
     <Compile Include="Dispatcher_Controller.cs" />
     <Compile Include="Functions_Dispatcher.cs" />
+    <Compile Include="Grade.cs" />
+    <Compile Include="Grades.cs" />
     <Compile Include="Grades_Page.xaml.cs">
       <DependentUpon>Grades_Page.xaml</DependentUpon>
     </Compile>
@@ -105,8 +108,10 @@
     <Compile Include="Server_WSDL_Payload.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="Settings_File.cs" />
-    <Compile Include="Students.xaml.cs">
-      <DependentUpon>Students.xaml</DependentUpon>
+    <Compile Include="Student.cs" />
+    <Compile Include="Students.cs" />
+    <Compile Include="Students_Page.xaml.cs">
+      <DependentUpon>Students_Page.xaml</DependentUpon>
     </Compile>
     <Compile Include="Student_Data.cs" />
     <Page Include="Additional_Data_Window.xaml">
@@ -117,7 +122,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Courses.xaml">
+    <Page Include="Courses_Page.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -157,7 +162,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Students.xaml">
+    <Page Include="Students_Page.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
