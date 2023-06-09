@@ -311,6 +311,8 @@ namespace University_Records_System_Client_Application
 
         private void Window_Is_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
+            Page_Navigation_Frame.NavigationService.RemoveBackEntry();
+
             Window_Closing = true;
 
             if(Animation_Timer != null)

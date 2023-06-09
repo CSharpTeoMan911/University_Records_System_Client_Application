@@ -24,6 +24,8 @@ namespace University_Records_System_Client_Application
     /// </summary>
     public partial class Students_Page : Page
     {
+        private int OnOff;
+
         public Students_Page()
         {
             InitializeComponent();
@@ -69,11 +71,49 @@ namespace University_Records_System_Client_Application
 
             Students students = Newtonsoft.Json.JsonConvert.DeserializeObject<Students>(Encoding.UTF8.GetString(result));
 
+
             foreach (Student s in students.students)
             {
-                System.Diagnostics.Debug.WriteLine(s.full_name);
+                if(Name_Filter.IsChecked == true)
+                {
+                    if (s.full_name == FullName_TextBox.Text)
+                    {
+                        Students_Data_Grid.Items.Add(new Student_Data { student_ID = s.student_ID, course_ID = s.course_ID, DOB = s.DOB.ToString("dd/MM/yyyy"), full_name = s.full_name });
+                    }
+                }
+                else if (DOB_Filter.IsChecked == true)
+                {
+                    DateTime selected_date = new DateTime();
 
-                Students_Data_Grid.Items.Add(new Student_Data {student_ID= s.student_ID, course_ID = s.course_ID, DOB = s.DOB.ToString("dd/MM/yyyy"), full_name = s.full_name});
+                    bool is_valid_date = DateTime.TryParse(DateOfBirth_DatePicker.Text, out selected_date);
+
+                    if(is_valid_date == true)
+                    {
+                        if (s.DOB == selected_date)
+                        {
+                            Students_Data_Grid.Items.Add(new Student_Data { student_ID = s.student_ID, course_ID = s.course_ID, DOB = s.DOB.ToString("dd/MM/yyyy"), full_name = s.full_name });
+                        }
+                    }
+                }
+                else if (StudentID_Filter.IsChecked == true)
+                {
+                    if (s.student_ID == StudentID_TextBox.Text)
+                    {
+                        Students_Data_Grid.Items.Add(new Student_Data { student_ID = s.student_ID, course_ID = s.course_ID, DOB = s.DOB.ToString("dd/MM/yyyy"), full_name = s.full_name });
+                    }
+                }
+                else if (Course_Filter.IsChecked == true)
+                {
+                    if(s.course_ID == CourseID_TextBox.Text)
+                    {
+                        Students_Data_Grid.Items.Add(new Student_Data { student_ID = s.student_ID, course_ID = s.course_ID, DOB = s.DOB.ToString("dd/MM/yyyy"), full_name = s.full_name });
+                    }
+                }
+                else if (None_Filter.IsChecked == true)
+                {
+                    Students_Data_Grid.Items.Add(new Student_Data { student_ID = s.student_ID, course_ID = s.course_ID, DOB = s.DOB.ToString("dd/MM/yyyy"), full_name = s.full_name });
+                }
+                
             }
 
             Students_Data_Grid.EndInit();
@@ -173,9 +213,24 @@ namespace University_Records_System_Client_Application
             }
         }
 
-        private void Search_Students_By_Criteria(object sender, RoutedEventArgs e)
-        {
+   
 
+        private void Filter_Menu(object sender, RoutedEventArgs e)
+        {
+            OnOff++;
+
+            switch(OnOff)
+            {
+                case 1:
+                    Filters.Height = 80;
+                    break;
+
+                case 2:
+                    OnOff = 0;
+                    Filters.Height = 0;
+                    break;
+            }
         }
+
     }
 }

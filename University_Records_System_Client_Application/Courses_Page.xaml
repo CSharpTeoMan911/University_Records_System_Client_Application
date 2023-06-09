@@ -57,13 +57,6 @@
                 <DataGridTextColumn Width="*" Header="Postgraduate" Binding="{Binding postgraduate}"/>
                 <DataGridTextColumn Width="*" Header="Location" Binding="{Binding location}"/>
                 <DataGridTextColumn Width="*" Header="Duration" Binding="{Binding duration}"/>
-                <DataGridTemplateColumn Width="*" Header="Modules">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <Button Click="Edit_Modules" Content="Edit"/>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
             </DataGrid.Columns>
 
             <DataGrid.Background>
@@ -151,7 +144,7 @@
             <StackPanel  HorizontalAlignment="Center" Margin="60,0,0,0">
 
 
-                <Button HorizontalAlignment="Left" Width="{Binding ElementName=Update_Data_Button, Path=ActualWidth}" Margin="0,3,20,0" Content="Load all courses" Style="{StaticResource Small_Rounded_Gray_Button}" Click="Load_All_Courses"/>
+                <Button HorizontalAlignment="Left" Width="{Binding ElementName=Update_Data_Button, Path=ActualWidth}" Margin="0,3,20,0" Content="Search courses" Style="{StaticResource Small_Rounded_Gray_Button}" Click="Load_All_Courses"/>
                 <Button HorizontalAlignment="Left" Width="{Binding ElementName=Update_Data_Button, Path=ActualWidth}" Margin="0,5,20,0" Content="Delete course" Style="{StaticResource Small_Rounded_Gray_Button}" Click="Delete_Course"/>
                 <Button x:Name="Update_Data_Button" HorizontalAlignment="Left" Margin="0,5,20,0" Content="Update course data" Style="{StaticResource Small_Rounded_Gray_Button}" Click="Update_Course_Data"/>
 
@@ -160,12 +153,82 @@
 
             <StackPanel  HorizontalAlignment="Center" Margin="10,0,0,0">
 
-                <Button HorizontalAlignment="Left" Width="{Binding ElementName=Update_Data_Button, Path=ActualWidth}" Margin="0,3,0,0" Content="Search" Style="{StaticResource Small_Rounded_Gray_Button}" Click="Search_Courses_By_Criteria"/>
                 <Button HorizontalAlignment="Left" Width="{Binding ElementName=Update_Data_Button, Path=ActualWidth}" Margin="0,5,20,0" Content="Insert course" Style="{StaticResource Small_Rounded_Gray_Button}" Click="Insert_Course"/>
                 <Button HorizontalAlignment="Left" Width="{Binding ElementName=Update_Data_Button, Path=ActualWidth}" Margin="0,5,20,0" Content="Clear" Style="{StaticResource Small_Rounded_Gray_Button}" Click="Clear_Fields"/>
 
             </StackPanel>
 
         </StackPanel>
+
+        <Button Grid.Column="8" Grid.Row="1" VerticalAlignment="Bottom" FontSize="20" FontFamily="Segoe MDL2 Assets" Content="&#xE16E;" HorizontalAlignment="Right" Margin="0,0,20,0" Style="{StaticResource Blue_On_Hover_Margin_Button_Style}" Click="Filter_Menu">
+            <Button.Foreground>
+                <LinearGradientBrush StartPoint="0.5, 1" EndPoint="0, 1">
+                    <GradientStop Color="#FF0090FF" Offset="1"/>
+                    <GradientStop Color="#FF095780"/>
+                </LinearGradientBrush>
+            </Button.Foreground>
+        </Button>
+
+        <StackPanel Name="Filters" Margin="0,0,10,0" Height="0" VerticalAlignment="Top" HorizontalAlignment="Right" Grid.RowSpan="2" Grid.ColumnSpan="2" Grid.Row="2" Grid.Column="7" Background="#FF121111">
+
+            <RadioButton x:Name="Course_ID_Filter" Margin="0,0,0,0" Content="Course ID">
+                <RadioButton.Foreground>
+                    <LinearGradientBrush StartPoint="0.5, 1" EndPoint="0, 1">
+                        <GradientStop Color="#FF0090FF" Offset="1"/>
+                        <GradientStop Color="#FF095780"/>
+                    </LinearGradientBrush>
+                </RadioButton.Foreground>
+            </RadioButton>
+
+            <RadioButton x:Name="Department_Filter"  Content="Department">
+                <RadioButton.Foreground>
+                    <LinearGradientBrush StartPoint="0.5, 1" EndPoint="0, 1">
+                        <GradientStop Color="#FF0090FF" Offset="1"/>
+                        <GradientStop Color="#FF095780"/>
+                    </LinearGradientBrush>
+                </RadioButton.Foreground>
+            </RadioButton>
+
+            <RadioButton x:Name="Postgraduate_Filter" Content="Postgraduate">
+                <RadioButton.Foreground>
+                    <LinearGradientBrush StartPoint="0.5, 1" EndPoint="0, 1">
+                        <GradientStop Color="#FF0090FF" Offset="1"/>
+                        <GradientStop Color="#FF095780"/>
+                    </LinearGradientBrush>
+                </RadioButton.Foreground>
+            </RadioButton>
+
+            <RadioButton x:Name="Location_Filter" Content="Location">
+                <RadioButton.Foreground>
+                    <LinearGradientBrush StartPoint="0.5, 1" EndPoint="0, 1">
+                        <GradientStop Color="#FF0090FF" Offset="1"/>
+                        <GradientStop Color="#FF095780"/>
+                    </LinearGradientBrush>
+                </RadioButton.Foreground>
+            </RadioButton>
+
+
+            <RadioButton x:Name="Duration_Filter" Content="Duration">
+                <RadioButton.Foreground>
+                    <LinearGradientBrush StartPoint="0.5, 1" EndPoint="0, 1">
+                        <GradientStop Color="#FF0090FF" Offset="1"/>
+                        <GradientStop Color="#FF095780"/>
+                    </LinearGradientBrush>
+                </RadioButton.Foreground>
+            </RadioButton>
+
+
+            <RadioButton x:Name="None_Filter" Content="None" IsChecked="True">
+                <RadioButton.Foreground>
+                    <LinearGradientBrush StartPoint="0.5, 1" EndPoint="0, 1">
+                        <GradientStop Color="#FF0090FF" Offset="1"/>
+                        <GradientStop Color="#FF095780"/>
+                    </LinearGradientBrush>
+                </RadioButton.Foreground>
+            </RadioButton>
+
+
+        </StackPanel>
+        
     </Grid>
 </Page>

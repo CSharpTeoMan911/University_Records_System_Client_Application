@@ -24,5 +24,10 @@ namespace University_Records_System_Client_Application
         {
             InitializeComponent();
         }
+
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
